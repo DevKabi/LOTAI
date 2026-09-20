@@ -155,16 +155,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return { error: null, needsEmailConfirmation };
   };
 
-  // Sign In with Google OAuth
+  // Sign In / Sign Up with Google OAuth
   const signInWithGoogle = async () => {
     if (!isSupabaseConfigured) {
       return { error: new Error('Supabase is not configured. Please add credentials to .env or use Demo Mode.') };
     }
 
+    const redirectUrl = window.location.origin;
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin
+        redirectTo: redirectUrl,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'select_account'
+        }
       }
     });
 
