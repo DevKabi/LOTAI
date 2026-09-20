@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { usePWAInstall } from '../../hooks/usePWAInstall';
 import { PWAInstallModal } from '../pwa/PWAInstallModal';
-import { PWASidePopup } from '../pwa/PWASidePopup';
 import { AuthModal } from '../auth/AuthModal';
 import { 
   Sparkles, 
@@ -20,7 +19,10 @@ import {
   Zap, 
   Layers, 
   Compass, 
-  Check 
+  Check,
+  Smartphone,
+  WifiOff,
+  HelpCircle
 } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
@@ -37,33 +39,9 @@ export const LandingPage: React.FC = () => {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authTab, setAuthTab] = useState<'login' | 'signup'>('signup');
 
-  // PWA Side Pop-up state (pops up on side on mobile view OR when registering)
-  const [isSidePopupOpen, setIsSidePopupOpen] = useState(false);
-  const [isSignupContext, setIsSignupContext] = useState(false);
-
-  // Auto trigger on mobile view
-  useEffect(() => {
-    if (isMobile) {
-      const timer = setTimeout(() => {
-        setIsSidePopupOpen(true);
-      }, 1200);
-      return () => clearTimeout(timer);
-    }
-  }, [isMobile]);
-
   const openAuth = (tab: 'login' | 'signup') => {
     setAuthTab(tab);
     setIsAuthOpen(true);
-    if (tab === 'signup') {
-      // Whenever someone goes to register, pop up the PWA on the side of the website
-      setIsSignupContext(true);
-      setIsSidePopupOpen(true);
-    }
-  };
-
-  const handleSideInstall = () => {
-    setIsSidePopupOpen(false);
-    promptInstall();
   };
 
   // Interactive Omni Simulator State
@@ -340,7 +318,7 @@ export const LandingPage: React.FC = () => {
                 Speak or type anything naturally—LOTAI classifies your intent, extracts data fields, and keeps your entire life on track.
               </p>
 
-              {/* Single Primary Call-to-Action (NO Demo button!) */}
+              {/* Primary Call-to-Action & PWA Quick Install */}
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
                 <button
                   onClick={() => openAuth('signup')}
@@ -348,6 +326,14 @@ export const LandingPage: React.FC = () => {
                 >
                   <span>Start Your Journey</span>
                   <ArrowRight className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={promptInstall}
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-200 border border-purple-500/30 font-bold text-sm sm:text-base shadow-lg transition active:scale-95 flex items-center justify-center space-x-2 min-h-[48px]"
+                  title="Install LOTAI PWA directly on your device"
+                >
+                  <Download className="w-4 h-4 text-purple-300" />
+                  <span>{isIOS ? 'Add to Home Screen' : 'Install PWA App'}</span>
                 </button>
               </div>
 
@@ -463,6 +449,108 @@ export const LandingPage: React.FC = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* ======================================================================= */}
+          {/* PWA INSTALLATION & CONTEXT HUB (EMBEDDED IN FIRST SECTION)              */}
+          {/* ======================================================================= */}
+          <div className="mt-8 lg:mt-12 p-5 sm:p-7 lg:p-8 rounded-3xl bg-slate-900/80 border border-indigo-500/30 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+            {/* Ambient background glow */}
+            <div className="absolute top-0 right-1/4 w-72 h-72 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-slate-800">
+              <div className="space-y-2 max-w-2xl">
+                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-semibold">
+                  <Smartphone className="w-3.5 h-3.5 text-purple-400" />
+                  <span>Progressive Web App • Native Performance With Zero App Store Overhead</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">
+                  Install LOTAI PWA on Your Mobile & Desktop
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  LOTAI runs as a Progressive Web App (PWA) directly from your mobile home screen or computer dock. 
+                  Experience <strong className="text-white">100% offline access</strong>, zero App Store storage bloat, instant 1-tap launch speeds, and distraction-free full-screen focus.
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full lg:w-auto shrink-0">
+                <button
+                  onClick={promptInstall}
+                  className="flex-1 sm:flex-initial px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 via-[#6D5DFE] to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-xs sm:text-sm font-bold shadow-xl shadow-indigo-600/30 flex items-center justify-center space-x-2 active:scale-95 transition min-h-[44px]"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>{isIOS ? 'Add to Home Screen' : 'Install App Now'}</span>
+                </button>
+
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="flex-1 sm:flex-initial px-5 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs sm:text-sm font-semibold flex items-center justify-center space-x-2 active:scale-95 transition min-h-[44px]"
+                >
+                  <HelpCircle className="w-4 h-4 text-slate-400" />
+                  <span>Installation Guide</span>
+                </button>
+              </div>
+            </div>
+
+            {/* 3 Pillars of PWA Context */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6">
+              {/* Context 1 */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-2">
+                <div className="flex items-center space-x-2 text-indigo-400 font-bold text-xs uppercase tracking-wider">
+                  <Zap className="w-4 h-4 text-indigo-400" />
+                  <span>Instant 1-Tap Launch</span>
+                </div>
+                <h3 className="text-sm sm:text-base font-bold text-white">Zero App Store Clutter</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  No 150MB App Store downloads or slow store updates. Tap the icon on your phone dock or desktop to launch immediately in full-screen native mode.
+                </p>
+              </div>
+
+              {/* Context 2 */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-2">
+                <div className="flex items-center space-x-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+                  <WifiOff className="w-4 h-4 text-emerald-400" />
+                  <span>100% Offline Capability</span>
+                </div>
+                <h3 className="text-sm sm:text-base font-bold text-white">Works Anywhere, Anytime</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Fly on airplanes, commute through tunnels, or work without cellular data. All your tasks, habits, and reflections stay locally cached and synced.
+                </p>
+              </div>
+
+              {/* Context 3 */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-2">
+                <div className="flex items-center space-x-2 text-purple-400 font-bold text-xs uppercase tracking-wider">
+                  <Mic className="w-4 h-4 text-purple-400" />
+                  <span>Omni Voice Direct Capture</span>
+                </div>
+                <h3 className="text-sm sm:text-base font-bold text-white">Fast Micro-Interactions</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Speak an expense or task on the move. Your microphone connects directly without browser address bar clutter or navigation bars getting in the way.
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Device Help Instructions */}
+            <div className="mt-5 p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-slate-400">
+              <div className="flex items-start sm:items-center space-x-2">
+                <span className="font-bold text-white shrink-0">Quick Tip:</span>
+                <span className="text-indigo-300">
+                  {isIOS 
+                    ? 'On iPhone/iPad: Tap the Safari Share button ⎋ at bottom, then select "Add to Home Screen" ⊞.'
+                    : isMobile 
+                      ? 'On Android: Tap "Install App Now" above or tap ⋮ in Chrome → "Install App".'
+                      : 'On Desktop (Chrome/Edge): Click "Install App Now" or the ⊕ icon in your browser address bar to install to Dock/Taskbar.'}
+                </span>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 underline underline-offset-2 shrink-0"
+              >
+                View full step-by-step visual guide →
+              </button>
             </div>
           </div>
         </section>
@@ -881,17 +969,6 @@ export const LandingPage: React.FC = () => {
         isIOS={isIOS}
         isMobile={isMobile}
         hasNativePrompt={hasNativePrompt}
-      />
-
-      {/* PWA Side Pop-up (Pops up on the side on mobile view OR when someone goes to register) */}
-      <PWASidePopup
-        isOpen={isSidePopupOpen}
-        onClose={() => setIsSidePopupOpen(false)}
-        onInstall={handleSideInstall}
-        isIOS={isIOS}
-        isMobile={isMobile}
-        hasNativePrompt={hasNativePrompt}
-        isSignupContext={isSignupContext}
       />
     </div>
   );
