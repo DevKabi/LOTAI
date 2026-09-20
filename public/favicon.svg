@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#151336" />
+      <stop offset="100%" stop-color="#050816" />
+    </radialGradient>
+    <linearGradient id="emblemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C6BFF" />
+      <stop offset="45%" stop-color="#6D5DFE" />
+      <stop offset="100%" stop-color="#4F3FF0" />
+    </linearGradient>
+    <linearGradient id="neonL" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="60%" stop-color="#E0E7FF" />
+      <stop offset="100%" stop-color="#38BDF8" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+  <rect x="56" y="56" width="400" height="400" rx="92" fill="url(#emblemGrad)" stroke="#A78BFA" stroke-width="4" stroke-opacity="0.4" />
+  <ellipse cx="256" cy="256" rx="140" ry="140" stroke="#38BDF8" stroke-width="8" stroke-opacity="0.6" stroke-dasharray="16 8" />
+  <ellipse cx="256" cy="256" rx="120" ry="120" stroke="#FFFFFF" stroke-width="4" stroke-opacity="0.8" />
+  <path d="M190 160 V330 H320" stroke="url(#neonL)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M336 176 Q336 208 304 208 Q336 208 336 240 Q336 208 368 208 Q336 208 336 176 Z" fill="#FFFFFF" />
+  <circle cx="336" cy="208" r="4" fill="#38BDF8" />
+</svg>
