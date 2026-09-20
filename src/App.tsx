@@ -16,10 +16,7 @@ import { OmniInputModal } from './components/omni/OmniInputModal';
 import { AICoachDrawer } from './components/coach/AICoachDrawer';
 import { ToastContainer } from './components/common/ToastContainer';
 import { AuthFlow } from './components/auth/AuthFlow';
-import { usePWAInstall } from './hooks/usePWAInstall';
 import { useNetworkStatus } from './hooks/useNetworkStatus';
-import { PWAInstallModal } from './components/pwa/PWAInstallModal';
-import { PWAFloatingPrompt } from './components/pwa/PWAFloatingPrompt';
 import { OfflineBanner } from './components/pwa/OfflineBanner';
 import { BottomNav } from './components/layout/BottomNav';
 import { QuickActionFab } from './components/layout/QuickActionFab';
@@ -30,21 +27,6 @@ export const AppContent: React.FC = () => {
   const { currentModule, setCurrentModule, updateSettings } = useApp();
   const { user, profile, isLoading, isDemoUser } = useAuth();
   const [isViewingTour, setIsViewingTour] = useState(false);
-  
-  // PWA & Offline state management
-  const {
-    isInstallable,
-    isInstalled,
-    isStandalone,
-    isIOS,
-    isMobile,
-    isDismissed,
-    setIsDismissed,
-    isModalOpen,
-    setIsModalOpen,
-    promptInstall,
-    hasNativePrompt
-  } = usePWAInstall();
 
   const { isOnline, syncStatus } = useNetworkStatus();
 
@@ -122,8 +104,6 @@ export const AppContent: React.FC = () => {
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-['Plus_Jakarta_Sans',sans-serif]">
       {/* Top Universal Navbar */}
       <Navbar 
-        onInstallClick={promptInstall}
-        isInstallable={isInstallable && !isStandalone && !isInstalled}
         isOnline={isOnline}
         syncStatus={syncStatus}
         onViewTour={() => setIsViewingTour(true)}
@@ -150,25 +130,6 @@ export const AppContent: React.FC = () => {
 
       {/* Mobile Universal Bottom Navigation (Visible on mobile/tablet) */}
       <BottomNav />
-
-      {/* PWA Floating Install Prompt & Benefits Modal */}
-      <PWAFloatingPrompt 
-        isInstallable={isInstallable}
-        isStandalone={isStandalone}
-        isDismissed={isDismissed}
-        isMobile={isMobile}
-        onOpenModal={() => setIsModalOpen(true)}
-        onDismiss={() => setIsDismissed(true)}
-      />
-
-      <PWAInstallModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onInstall={promptInstall}
-        isIOS={isIOS}
-        isMobile={isMobile}
-        hasNativePrompt={hasNativePrompt}
-      />
 
       {/* Global Modals & Drawers */}
       <OmniInputModal />

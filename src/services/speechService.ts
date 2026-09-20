@@ -16,11 +16,13 @@ export interface SpeechCallbacks {
 export class SpeechService {
   private static recognition: any = null;
   private static isListening: boolean = false;
+  private static isPausedState: boolean = false;
   private static shouldKeepListening: boolean = false;
   private static baseText: string = '';
   private static currentSessionTranscript: string = '';
   private static lastReportedFullText: string = '';
   private static restartTimer: any = null;
+  private static activeCallbacks: SpeechCallbacks | null = null;
 
   static isSpeechSupported(): boolean {
     return typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window);
@@ -28,6 +30,10 @@ export class SpeechService {
 
   static getIsListening(): boolean {
     return this.isListening;
+  }
+
+  static isPaused(): boolean {
+    return this.isPausedState;
   }
 
   static getLatestTranscript(): string {
@@ -43,6 +49,8 @@ export class SpeechService {
     // Stop any existing instance cleanly
     this.stopListening();
 
+    this.activeCallbacks = callbacks;
+    this.isPausedState = false;
     this.shouldKeepListening = true;
     this.baseText = initialText.trim() ? initialText.trim() + ' ' : '';
     this.currentSessionTranscript = '';
@@ -132,8 +140,33 @@ export class SpeechService {
     return setupRecognition();
   }
 
+  static pauseListening(): string {
+    this.isPausedState = true;
+    this.shouldKeepListening = false;
+    if (this.restartTimer) {
+      clearTimeout(this.restartTimer);
+      this.restartTimer = null;
+    }
+    if (this.recognition) {
+      try {
+        this.recognition.stop();
+      } catch (e) {
+        // ignore
+      }
+    }
+    this.isListening = false;
+    return this.lastReportedFullText;
+  }
+
+  static resumeListening(): boolean {
+    if (!this.activeCallbacks) return false;
+    this.isPausedState = false;
+    return this.startListening(this.activeCallbacks, this.lastReportedFullText);
+  }
+
   static stopListening(): string {
     this.shouldKeepListening = false;
+    this.isPausedState = false;
     if (this.restartTimer) {
       clearTimeout(this.restartTimer);
       this.restartTimer = null;

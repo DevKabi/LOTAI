@@ -6,9 +6,12 @@ import { OmniCaptureCard } from '../omni/OmniCaptureCard';
 import { 
   Sparkles, 
   Mic, 
-  MicOff, 
+  Play,
+  Pause,
+  Square,
+  Search,
+  X,
   Send, 
-  Keyboard, 
   CheckCircle2, 
   ArrowRight,
   DollarSign,
@@ -26,6 +29,7 @@ export const HeroAICommandCenter: React.FC = () => {
   const { executeOmniSave, setCurrentModule, settings } = useApp();
   const [inputText, setInputText] = useState('');
   const [isListening, setIsListening] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [parsedPreview, setParsedPreview] = useState<OmniCaptureResult | null>(null);
   const [activeCapture, setActiveCapture] = useState<OmniCaptureResult | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -51,14 +55,74 @@ export const HeroAICommandCenter: React.FC = () => {
     };
   }, []);
 
+  const handleStartVoice = () => {
+    setSpeechError(null);
+    setIsPaused(false);
+    const ok = SpeechService.startListening(
+      {
+        onStart: () => {
+          setIsListening(true);
+          setIsPaused(false);
+        },
+        onResult: (transcript) => {
+          setInputText(transcript);
+        },
+        onError: (err) => {
+          setSpeechError(err);
+          setIsListening(false);
+          setIsPaused(false);
+        },
+        onEnd: () => {
+          if (!SpeechService.getIsListening() && !SpeechService.isPaused()) {
+            setIsListening(false);
+          }
+        }
+      },
+      inputText
+    );
+    if (!ok) {
+      setSpeechError('Microphone not available in this browser or permission denied.');
+    }
+  };
+
+  const handlePauseVoice = () => {
+    const text = SpeechService.pauseListening();
+    setIsListening(false);
+    setIsPaused(true);
+    if (text) setInputText(text);
+  };
+
+  const handleResumeVoice = () => {
+    setIsPaused(false);
+    handleStartVoice();
+  };
+
+  const handleStopVoice = () => {
+    const text = SpeechService.stopListening();
+    setIsListening(false);
+    setIsPaused(false);
+    if (text) setInputText(text);
+  };
+
+  const handleToggleVoiceOrb = () => {
+    if (isListening) {
+      handlePauseVoice();
+    } else if (isPaused) {
+      handleResumeVoice();
+    } else {
+      handleStartVoice();
+    }
+  };
+
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
 
     // If currently listening, stop mic and ensure full transcript is captured
     let query = inputText.trim();
-    if (isListening) {
+    if (isListening || isPaused) {
       const finalVoice = SpeechService.stopListening();
       setIsListening(false);
+      setIsPaused(false);
       if (finalVoice) {
         query = finalVoice.trim();
         setInputText(finalVoice);
@@ -70,6 +134,7 @@ export const HeroAICommandCenter: React.FC = () => {
     setIsAnalyzing(true);
     SpeechService.stopListening();
     setIsListening(false);
+    setIsPaused(false);
 
     try {
       const analyzed = await OmniCaptureService.analyzeInput(
@@ -105,46 +170,6 @@ export const HeroAICommandCenter: React.FC = () => {
     }
   };
 
-  const toggleVoiceRecording = () => {
-    if (isListening) {
-      // Stop recording and preserve complete translation in the search bar
-      const finalTranscript = SpeechService.stopListening();
-      setIsListening(false);
-      if (finalTranscript) {
-        setInputText(finalTranscript);
-      }
-      inputRef.current?.focus();
-    } else {
-      setSpeechError(null);
-      const ok = SpeechService.startListening(
-        {
-          onStart: () => setIsListening(true),
-          onResult: (transcript) => {
-            // Continuously paste real-time speech translation into the search bar
-            setInputText(transcript);
-          },
-          onError: (err) => {
-            setSpeechError(err);
-            setIsListening(false);
-          },
-          onEnd: () => {
-            if (!SpeechService.getIsListening()) {
-              setIsListening(false);
-            }
-          }
-        },
-        inputText
-      );
-      if (!ok) {
-        setSpeechError('Microphone not available in this browser or permission denied.');
-      }
-    }
-  };
-
-  const handleFocusType = () => {
-    inputRef.current?.focus();
-  };
-
   const handleSuggestionClick = (suggestion: string) => {
     setInputText(suggestion);
     inputRef.current?.focus();
@@ -177,33 +202,34 @@ export const HeroAICommandCenter: React.FC = () => {
   ];
 
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-950 border border-indigo-500/30 p-6 sm:p-8 shadow-2xl space-y-6">
+    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-950 border border-indigo-500/30 p-4 sm:p-7 shadow-2xl space-y-6">
       {/* Background Decorative Ambient Glows */}
       <div className="absolute -top-24 -left-24 w-72 h-72 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-purple-600/15 rounded-full blur-3xl pointer-events-none" />
 
       {/* Hero Title & Tagline */}
       <div className="relative z-10 text-center max-w-2xl mx-auto">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold mb-3">
+        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold mb-2">
           <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-spin-slow" />
-          <span>LOTAI Omni Capture AI Engine</span>
+          <span>LOTAI Omni Voice & Intelligence</span>
         </div>
         
-        <h1 className="text-4xl sm:text-5xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-indigo-300">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-indigo-300">
           LOTAI
         </h1>
-        <p className="text-base sm:text-lg font-medium text-slate-400 mt-1">
+        <p className="text-sm sm:text-base font-medium text-slate-400 mt-1">
           Life On Track. Powered by AI.
         </p>
       </div>
 
       {/* [ AI Command Center ] Interactive Console Box */}
-      <div className="relative z-10 max-w-3xl mx-auto bg-slate-950/80 backdrop-blur-xl border border-indigo-500/40 rounded-2xl p-4 sm:p-6 shadow-xl space-y-4">
-        {/* Console Header Bar */}
+      <div className="relative z-10 max-w-3xl mx-auto bg-slate-950/85 backdrop-blur-xl border border-indigo-500/40 rounded-3xl p-4 sm:p-7 shadow-2xl space-y-6">
+        
+        {/* Top Status Bar */}
         <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
           <div className="flex items-center space-x-2">
             <span className="text-xs font-mono font-bold tracking-wider text-indigo-400 uppercase">
-              [ AI Command Center ]
+              [ AI COMMAND CENTER ]
             </span>
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -211,127 +237,228 @@ export const HeroAICommandCenter: React.FC = () => {
             </span>
           </div>
 
-          <div className="text-[11px] text-slate-400 font-medium">
-            {settings.geminiApiKey ? 'Gemini 2.5 Active' : 'Offline Heuristic Engine'}
+          <div className="flex items-center space-x-1.5 text-[11px] text-emerald-400 font-semibold bg-emerald-950/40 border border-emerald-800/40 px-2.5 py-0.5 rounded-full">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Gemini 3.6 Flash Active</span>
           </div>
         </div>
 
-        {/* Input Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="relative">
+        {/* ===================================================================== */}
+        {/* CHATGPT-STYLE FLUID VOICE ORB SECTION (TOP PROMINENT FEATURE)          */}
+        {/* ===================================================================== */}
+        <div className="flex flex-col items-center justify-center py-4 sm:py-6 relative">
+          
+          {/* Animated Ambient Backing Glow */}
+          <div className={`absolute w-44 h-44 rounded-full blur-3xl transition-all duration-700 pointer-events-none ${
+            isListening 
+              ? 'bg-sky-500/30 scale-125' 
+              : isPaused 
+              ? 'bg-amber-500/25 scale-105' 
+              : 'bg-indigo-500/20 scale-100'
+          }`} />
+
+          {/* Glowing Fluid Orb Container */}
+          <div className="relative flex items-center justify-center">
+            {/* Outer Ripple Rings while Listening */}
+            {isListening && (
+              <>
+                <div className="absolute -inset-4 rounded-full bg-sky-400/20 animate-ping opacity-60 pointer-events-none" />
+                <div className="absolute -inset-2 rounded-full border border-sky-400/40 animate-pulse pointer-events-none" />
+                <div className="absolute -inset-6 rounded-full border border-indigo-400/20 animate-spin-slow pointer-events-none" />
+              </>
+            )}
+
+            {/* The Fluid Gradient Orb */}
+            <button
+              type="button"
+              onClick={handleToggleVoiceOrb}
+              title={isListening ? 'Tap to Pause' : isPaused ? 'Tap to Resume' : 'Tap to Start Voice'}
+              className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center transition-all duration-300 transform active:scale-95 shadow-2xl cursor-pointer group ${
+                isListening
+                  ? 'bg-gradient-to-tr from-sky-300 via-blue-100 to-white shadow-[0_0_60px_rgba(56,189,248,0.7)] scale-105 ring-4 ring-sky-300/40'
+                  : isPaused
+                  ? 'bg-gradient-to-tr from-amber-300 via-indigo-100 to-white shadow-[0_0_40px_rgba(251,191,36,0.5)] ring-4 ring-amber-400/30'
+                  : 'bg-gradient-to-tr from-indigo-300 via-sky-200 to-white hover:from-white hover:to-indigo-200 shadow-[0_0_45px_rgba(129,140,248,0.45)] hover:scale-105 ring-2 ring-indigo-400/30'
+              }`}
+            >
+              {/* Inner Soft Center Icon (Play / Pause / Mic) */}
+              <div className="relative z-10 flex items-center justify-center">
+                {isListening ? (
+                  <Pause className="w-9 h-9 sm:w-10 sm:h-10 text-slate-900 fill-slate-900/40 drop-shadow transition" />
+                ) : isPaused ? (
+                  <Play className="w-9 h-9 sm:w-10 sm:h-10 text-slate-900 fill-slate-900 ml-1 drop-shadow transition" />
+                ) : (
+                  <Mic className="w-9 h-9 sm:w-10 sm:h-10 text-slate-900 drop-shadow transition group-hover:scale-110" />
+                )}
+              </div>
+            </button>
+          </div>
+
+          {/* Voice State Status Text & Visualizer */}
+          <div className="text-center mt-4 space-y-1.5">
+            <p className="text-sm sm:text-base font-bold text-white flex items-center justify-center space-x-2">
+              {isListening ? (
+                <>
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-200 via-white to-sky-300 font-extrabold">
+                    Listening to your voice...
+                  </span>
+                </>
+              ) : isPaused ? (
+                <>
+                  <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+                  <span className="text-amber-300 font-semibold">Voice Paused — Tap to Resume</span>
+                </>
+              ) : (
+                <span className="text-slate-300 font-medium">Tap orb to speak like ChatGPT</span>
+              )}
+            </p>
+
+            {/* Audio Waveform Simulator Bars when listening */}
+            {isListening && (
+              <div className="flex items-center justify-center space-x-1.5 py-1">
+                <span className="w-1 h-3 bg-sky-400 rounded-full animate-pulse"></span>
+                <span className="w-1 h-6 bg-sky-300 rounded-full animate-pulse delay-75"></span>
+                <span className="w-1 h-8 bg-white rounded-full animate-pulse delay-150"></span>
+                <span className="w-1 h-5 bg-sky-300 rounded-full animate-pulse delay-200"></span>
+                <span className="w-1 h-7 bg-indigo-300 rounded-full animate-pulse delay-100"></span>
+                <span className="w-1 h-3 bg-sky-400 rounded-full animate-pulse delay-300"></span>
+              </div>
+            )}
+          </div>
+
+          {/* Soft Voice Action Controls (Play/Pause, Stop, Clear) */}
+          {(isListening || isPaused || inputText.trim().length > 0) && (
+            <div className="flex items-center justify-center gap-2.5 mt-3 animate-fadeIn">
+              {/* Play / Pause Toggle Button */}
+              <button
+                type="button"
+                onClick={handleToggleVoiceOrb}
+                className={`flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition shadow-sm border ${
+                  isListening
+                    ? 'bg-slate-800 hover:bg-slate-700 text-amber-300 border-amber-500/40'
+                    : 'bg-emerald-600 hover:bg-emerald-500 text-white border-emerald-500'
+                }`}
+              >
+                {isListening ? (
+                  <>
+                    <Pause className="w-3.5 h-3.5" />
+                    <span>Pause</span>
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-3.5 h-3.5 fill-current" />
+                    <span>{isPaused ? 'Resume' : 'Speak'}</span>
+                  </>
+                )}
+              </button>
+
+              {/* Stop Button */}
+              {(isListening || isPaused) && (
+                <button
+                  type="button"
+                  onClick={handleStopVoice}
+                  className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-slate-800 hover:bg-slate-700 text-rose-300 border border-rose-500/40 text-xs font-bold transition shadow-sm"
+                >
+                  <Square className="w-3 h-3 fill-current" />
+                  <span>Stop</span>
+                </button>
+              )}
+
+              {/* Clear Text Button */}
+              {inputText.trim().length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setInputText('');
+                    if (isListening || isPaused) {
+                      SpeechService.stopListening();
+                      setIsListening(false);
+                      setIsPaused(false);
+                    }
+                  }}
+                  className="flex items-center space-x-1 px-3 py-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-700 text-xs font-medium transition"
+                >
+                  <X className="w-3 h-3" />
+                  <span>Clear</span>
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Speech Error Notice */}
+          {speechError && (
+            <p className="mt-3 text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3.5 py-1.5 rounded-xl max-w-md text-center">
+              {speechError}
+            </p>
+          )}
+        </div>
+
+        {/* ===================================================================== */}
+        {/* LIVE DETECTION & SEARCH BAR (DIRECTLY BELOW VOICE SECTION)             */}
+        {/* ===================================================================== */}
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div className="relative flex items-center bg-slate-900 border border-slate-700/80 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 rounded-2xl shadow-inner transition p-1 sm:p-1.5">
+            <Search className="w-5 h-5 text-indigo-400 ml-3 shrink-0" />
+            
             <input
               ref={inputRef}
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder="Tell LOTAI anything..."
-              className="w-full bg-slate-900 border border-slate-700/80 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded-xl px-4 sm:px-5 py-4 text-base sm:text-lg text-slate-100 placeholder-slate-500 focus:outline-none transition pr-28"
+              placeholder="Live detection transcript or type anything here..."
+              className="flex-1 bg-transparent px-3 py-3 text-sm sm:text-base text-slate-100 placeholder-slate-500 focus:outline-none"
             />
 
-            {/* Listening Wave Overlay when active */}
-            {isListening && (
-              <div className="absolute inset-y-0 right-3 flex items-center space-x-1.5 pointer-events-none pr-2">
-                <span className="text-xs font-bold text-rose-400 animate-pulse hidden sm:inline">
-                  Listening continuously...
-                </span>
-                <span className="w-1.5 h-4 bg-rose-500 rounded-full animate-pulse"></span>
-                <span className="w-1.5 h-7 bg-rose-500 rounded-full animate-pulse delay-75"></span>
-                <span className="w-1.5 h-10 bg-rose-500 rounded-full animate-pulse delay-150"></span>
-                <span className="w-1.5 h-5 bg-rose-500 rounded-full animate-pulse delay-200"></span>
-              </div>
+            {/* Clear Button */}
+            {inputText && (
+              <button
+                type="button"
+                onClick={() => setInputText('')}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition mr-1"
+                title="Clear input"
+              >
+                <X className="w-4 h-4" />
+              </button>
             )}
-          </div>
 
-          {/* Action Control Buttons: Voice, Type, Submit */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-            <div className="flex items-center space-x-2">
-              {/* 🎤 Voice Button */}
-              <button
-                type="button"
-                onClick={toggleVoiceRecording}
-                className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md ${
-                  isListening
-                    ? 'bg-rose-500 hover:bg-rose-600 text-white animate-pulse shadow-rose-500/40 ring-2 ring-rose-400/50'
-                    : 'bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-slate-600'
-                }`}
-              >
-                {isListening ? (
-                  <>
-                    <MicOff className="w-4 h-4 text-white" />
-                    <span>🔴 Stop Mic</span>
-                  </>
-                ) : (
-                  <>
-                    <Mic className="w-4 h-4 text-rose-400" />
-                    <span>🎤 Voice</span>
-                  </>
-                )}
-              </button>
-
-              {/* ⌨️ Type Button */}
-              <button
-                type="button"
-                onClick={handleFocusType}
-                className="flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-slate-600 font-bold text-xs sm:text-sm transition shadow-md"
-              >
-                <Keyboard className="w-4 h-4 text-indigo-400" />
-                <span>⌨️ Type</span>
-              </button>
-            </div>
-
-            {/* ➤ Submit / Go Button */}
+            {/* Submit / Process Button */}
             <button
               type="submit"
               disabled={!inputText.trim() || isAnalyzing}
-              className={`flex items-center space-x-2 px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-lg transition disabled:opacity-40 disabled:cursor-not-allowed active:scale-95 ${
-                isListening
-                  ? 'bg-gradient-to-r from-emerald-600 to-indigo-600 hover:from-emerald-500 hover:to-indigo-500 text-white shadow-emerald-600/30 ring-2 ring-emerald-400/50'
-                  : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-indigo-600/30'
-              }`}
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-indigo-600/30 transition active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed flex items-center space-x-1.5 shrink-0 mr-1"
             >
               {isAnalyzing ? (
                 <>
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                  <span>Analyzing...</span>
-                </>
-              ) : isListening ? (
-                <>
-                  <span>➤ Go / Submit</span>
-                  <Send className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Analyzing...</span>
                 </>
               ) : (
                 <>
-                  <span>➤ Submit</span>
+                  <span>Submit</span>
                   <Send className="w-3.5 h-3.5" />
                 </>
               )}
             </button>
           </div>
 
-          {/* Speech Error Warning */}
-          {speechError && (
-            <p className="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-lg">
-              {speechError}
-            </p>
-          )}
-
-          {/* Live Intent Classification Feedback Pill while typing */}
+          {/* Live Intent Classification Feedback Badge */}
           {parsedPreview && !activeCapture && (
-            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-indigo-500/40 text-xs transition animate-fadeIn">
-              <div className="flex items-center space-x-2.5">
-                <div className="p-1.5 rounded-lg bg-slate-800 border border-slate-700">
+            <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-900/90 border border-indigo-500/40 text-xs transition animate-fadeIn">
+              <div className="flex items-center space-x-2.5 min-w-0">
+                <div className="p-1.5 rounded-lg bg-slate-800 border border-slate-700 shrink-0">
                   {getModuleIcon(parsedPreview.module)}
                 </div>
-                <div>
+                <div className="truncate">
                   <span className="font-bold text-indigo-400 uppercase tracking-wide mr-2">
-                    ⚡ {parsedPreview.masterCategory} ➔ {parsedPreview.destinationTable}:
+                    ⚡ {parsedPreview.masterCategory}:
                   </span>
                   <span className="text-slate-200 font-medium">
                     {parsedPreview.summary}
                   </span>
                 </div>
               </div>
-              <span className={`text-[10px] uppercase font-extrabold px-2.5 py-0.5 rounded border ${
+              <span className={`text-[10px] uppercase font-extrabold px-2.5 py-0.5 rounded border shrink-0 ml-2 ${
                 parsedPreview.confidenceTier === 'high'
                   ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
                   : (parsedPreview.confidenceTier === 'medium'
