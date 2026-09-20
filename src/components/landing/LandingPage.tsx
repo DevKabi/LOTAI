@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePWAInstall } from '../../hooks/usePWAInstall';
 import { PWAInstallModal } from '../pwa/PWAInstallModal';
+import { PWASidePopup } from '../pwa/PWASidePopup';
 import { AuthModal } from '../auth/AuthModal';
 import { 
   Sparkles, 
@@ -36,9 +37,33 @@ export const LandingPage: React.FC = () => {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authTab, setAuthTab] = useState<'login' | 'signup'>('signup');
 
+  // PWA Side Pop-up state (pops up on side on mobile view OR when registering)
+  const [isSidePopupOpen, setIsSidePopupOpen] = useState(false);
+  const [isSignupContext, setIsSignupContext] = useState(false);
+
+  // Auto trigger on mobile view
+  useEffect(() => {
+    if (isMobile) {
+      const timer = setTimeout(() => {
+        setIsSidePopupOpen(true);
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [isMobile]);
+
   const openAuth = (tab: 'login' | 'signup') => {
     setAuthTab(tab);
     setIsAuthOpen(true);
+    if (tab === 'signup') {
+      // Whenever someone goes to register, pop up the PWA on the side of the website
+      setIsSignupContext(true);
+      setIsSidePopupOpen(true);
+    }
+  };
+
+  const handleSideInstall = () => {
+    setIsSidePopupOpen(false);
+    promptInstall();
   };
 
   // Interactive Omni Simulator State
@@ -843,7 +868,7 @@ export const LandingPage: React.FC = () => {
         initialTab={authTab}
       />
 
-      {/* Guided PWA Install Modal */}
+      {/* Guided PWA Install Modal (Step-by-step) */}
       <PWAInstallModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -851,6 +876,17 @@ export const LandingPage: React.FC = () => {
         isIOS={isIOS}
         isMobile={isMobile}
         hasNativePrompt={hasNativePrompt}
+      />
+
+      {/* PWA Side Pop-up (Pops up on the side on mobile view OR when someone goes to register) */}
+      <PWASidePopup
+        isOpen={isSidePopupOpen}
+        onClose={() => setIsSidePopupOpen(false)}
+        onInstall={handleSideInstall}
+        isIOS={isIOS}
+        isMobile={isMobile}
+        hasNativePrompt={hasNativePrompt}
+        isSignupContext={isSignupContext}
       />
     </div>
   );
