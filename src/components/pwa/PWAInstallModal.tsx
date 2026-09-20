@@ -50,7 +50,7 @@ export const PWAInstallModal: React.FC<PWAInstallModalProps> = ({
         <div className="flex items-center space-x-4">
           <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 p-0.5 shadow-xl shadow-indigo-500/30 shrink-0">
             <img 
-              src="/icons/icon-192x192.png" 
+              src="./icons/icon-192x192.png" 
               alt="LOTAI Logo" 
               className="w-full h-full rounded-2xl object-cover" 
             />

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Download, X, Sparkles, Smartphone } from 'lucide-react';
 
 interface PWAFloatingPromptProps {
@@ -38,12 +38,12 @@ export const PWAFloatingPrompt: React.FC<PWAFloatingPromptProps> = ({
         </button>
 
         {/* Mini App Icon */}
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 p-0.5 shrink-0 shadow-md shadow-indigo-500/30">
-          <img 
-            src="/icons/icon-96x96.png" 
-            alt="LOTAI" 
-            className="w-full h-full rounded-xl object-cover" 
-          />
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 p-0.5 shadow-md shadow-indigo-500/30 shrink-0">
+            <img 
+              src="./icons/icon-96x96.png" 
+              alt="LOTAI Logo" 
+              className="w-full h-full rounded-xl object-cover" 
+            />
         </div>
 
         {/* Text Details */}

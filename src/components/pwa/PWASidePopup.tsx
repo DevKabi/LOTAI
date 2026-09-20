@@ -44,7 +44,7 @@ export const PWASidePopup: React.FC<PWASidePopupProps> = ({
         <div className="flex items-start space-x-3 pr-6">
           <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 p-0.5 shadow-lg shadow-indigo-500/30 shrink-0">
             <img 
-              src="/icons/icon-96x96.png" 
+              src="./icons/icon-96x96.png" 
               alt="LOTAI Logo" 
               className="w-full h-full rounded-2xl object-cover" 
             />

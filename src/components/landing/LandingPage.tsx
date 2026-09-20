@@ -261,20 +261,20 @@ export const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-[#050816] text-slate-100 font-['Plus_Jakarta_Sans',sans-serif] selection:bg-indigo-500 selection:text-white flex flex-col">
+    <div className="min-h-screen w-full bg-[#050816] text-slate-100 font-['Plus_Jakarta_Sans',sans-serif] selection:bg-indigo-500 selection:text-white flex flex-col overflow-x-hidden">
       
       {/* ========================================================================= */}
       {/* STICKY TOP HEADER (COVERS HEADER COMPLETELY, ONE-LINE ACTIONS ON MOBILE)   */}
       {/* ========================================================================= */}
-      <header className="sticky top-0 z-50 w-full bg-[#050816]/95 backdrop-blur-2xl border-b border-slate-800/80 px-3 sm:px-6 lg:px-12 py-2.5 sm:py-3.5">
-        <div className="max-w-[1800px] mx-auto flex items-center justify-between gap-2">
+      <header className="sticky top-0 z-50 w-full bg-[#050816]/95 backdrop-blur-2xl border-b border-slate-800/80 px-2.5 sm:px-6 lg:px-12 py-2 sm:py-3.5">
+        <div className="max-w-[1800px] mx-auto flex items-center justify-between gap-1.5 sm:gap-2">
           {/* Brand */}
-          <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-              <Sparkles className="w-4 h-4 text-white" />
+          <div className="flex items-center space-x-1.5 sm:space-x-3 shrink-0">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
             </div>
             <div className="flex items-center space-x-2">
-              <span className="text-base sm:text-lg font-black tracking-tight text-white">LOTAI</span>
+              <span className="text-sm sm:text-lg font-black tracking-tight text-white">LOTAI</span>
               <span className="hidden md:inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
                 Life On Track AI
               </span>
@@ -282,19 +282,20 @@ export const LandingPage: React.FC = () => {
           </div>
 
           {/* Actions: Strictly ONE SINGLE LINE on mobile & desktop */}
-          <div className="flex items-center space-x-1.5 sm:space-x-3 shrink-0 flex-nowrap whitespace-nowrap">
+          <div className="flex items-center space-x-1 sm:space-x-3 shrink-0 flex-nowrap whitespace-nowrap">
             <button
               onClick={() => openAuth('login')}
-              className="px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs sm:text-sm font-semibold border border-slate-700/80 active:scale-95 transition whitespace-nowrap"
+              className="px-2 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs sm:text-sm font-semibold border border-slate-700/80 active:scale-95 transition whitespace-nowrap"
             >
               Sign In
             </button>
 
             <button
               onClick={() => openAuth('signup')}
-              className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-xl bg-[#6D5DFE] hover:bg-[#5a4ae6] text-white text-xs sm:text-sm font-bold shadow-lg shadow-indigo-600/30 active:scale-95 transition whitespace-nowrap flex items-center space-x-1.5"
+              className="px-2.5 sm:px-5 py-1.5 sm:py-2 rounded-xl bg-[#6D5DFE] hover:bg-[#5a4ae6] text-white text-xs sm:text-sm font-bold shadow-lg shadow-indigo-600/30 active:scale-95 transition whitespace-nowrap flex items-center space-x-1"
             >
-              <span>Start Your Journey</span>
+              <span className="hidden min-[380px]:inline">Start Your Journey</span>
+              <span className="min-[380px]:hidden">Start Journey</span>
               <ArrowRight className="w-3.5 h-3.5 hidden sm:inline" />
             </button>
 
@@ -743,6 +744,10 @@ export const LandingPage: React.FC = () => {
             <p className="text-xs sm:text-sm text-slate-400">
               Why pay for 6 separate subscriptions when one intelligent operating system unifies everything?
             </p>
+          </div>
+
+          <div className="flex items-center justify-center text-[11px] text-slate-400 sm:hidden gap-1 font-medium">
+            <span>← Swipe table horizontally to compare →</span>
           </div>
 
           <div className="overflow-x-auto rounded-3xl border border-slate-800 bg-slate-900/70 p-4 sm:p-6">
