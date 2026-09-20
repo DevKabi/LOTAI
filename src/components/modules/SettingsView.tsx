@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   Settings, 
-  Key, 
   Download, 
   Upload, 
   RotateCcw, 
@@ -19,6 +18,12 @@ import {
   ExternalLink,
   Loader2
 } from 'lucide-react';
+import { 
+  DEFAULT_GEMINI_MODEL, 
+  getActiveGeminiApiKey, 
+  isUsingCustomGeminiKey, 
+  sanitizeGeminiModel 
+} from '../../config/geminiConfig';
 
 export interface GeminiModelOption {
   id: string;
@@ -29,20 +34,20 @@ export interface GeminiModelOption {
 
 const DEFAULT_GEMINI_MODELS: GeminiModelOption[] = [
   { 
-    id: 'gemini-2.0-flash', 
-    displayName: 'Gemini 2.0 Flash', 
-    description: 'Next-gen, multimodal, ultra-fast & recommended', 
+    id: 'gemini-3.6-flash', 
+    displayName: 'Gemini 3.6 Flash', 
+    description: 'Next-gen, multimodal, ultra-fast & recommended for voice & intent parsing', 
     isRecommended: true 
   },
   { 
-    id: 'gemini-2.0-flash-lite', 
-    displayName: 'Gemini 2.0 Flash Lite', 
-    description: 'Lightweight & cost-efficient' 
+    id: 'gemini-2.5-flash', 
+    displayName: 'Gemini 2.5 Flash', 
+    description: 'High-speed production model' 
   },
   { 
     id: 'gemini-1.5-flash', 
     displayName: 'Gemini 1.5 Flash', 
-    description: 'Standard high-speed production model' 
+    description: 'Standard flash model' 
   },
   { 
     id: 'gemini-1.5-pro', 
@@ -63,9 +68,7 @@ export const SettingsView: React.FC = () => {
   
   // AI Key & Model Discovery state
   const [apiKey, setApiKey] = useState(settings.geminiApiKey || '');
-  const initialModel = (!settings.geminiModel || settings.geminiModel === 'gemini-2.5-flash')
-    ? 'gemini-2.0-flash'
-    : settings.geminiModel.replace(/^models\//, '');
+  const initialModel = sanitizeGeminiModel(settings.geminiModel) || DEFAULT_GEMINI_MODEL;
   const [selectedModel, setSelectedModel] = useState(initialModel);
   const [availableModels, setAvailableModels] = useState<GeminiModelOption[]>(DEFAULT_GEMINI_MODELS);
   const [isDiscoveringModels, setIsDiscoveringModels] = useState(false);
@@ -79,10 +82,11 @@ export const SettingsView: React.FC = () => {
     sampleReply?: string;
   } | null>(null);
 
-  // Auto-discover available models on mount if key exists
+  // Auto-discover available models on mount using active key
   useEffect(() => {
-    if (settings.geminiApiKey && settings.geminiApiKey.trim().length >= 20) {
-      fetchAvailableModels(settings.geminiApiKey, false);
+    const activeKey = getActiveGeminiApiKey(settings.geminiApiKey);
+    if (activeKey && activeKey.length >= 15) {
+      fetchAvailableModels(activeKey, false);
     }
   }, []);
 
@@ -115,13 +119,13 @@ export const SettingsView: React.FC = () => {
               id: cleanId,
               displayName: m.displayName || cleanId,
               description: m.description,
-              isRecommended: cleanId === 'gemini-2.0-flash'
+              isRecommended: cleanId === 'gemini-3.6-flash'
             };
           });
 
         const rank: Record<string, number> = {
-          'gemini-2.0-flash': 1,
-          'gemini-2.0-flash-lite': 2,
+          'gemini-3.6-flash': 1,
+          'gemini-2.5-flash': 2,
           'gemini-1.5-flash': 3,
           'gemini-1.5-flash-8b': 4,
           'gemini-1.5-pro': 5
@@ -134,7 +138,7 @@ export const SettingsView: React.FC = () => {
           setDiscoverySummary(`Discovered ${validModels.length} compatible models from Google API`);
 
           if (autoSwitchToRecommended || !validModels.some(m => m.id === selectedModel)) {
-            const preferred = validModels.find(m => m.id === 'gemini-2.0-flash')?.id || validModels[0].id;
+            const preferred = validModels.find(m => m.id === 'gemini-3.6-flash')?.id || validModels[0].id;
             setSelectedModel(preferred);
           }
         }
@@ -165,9 +169,9 @@ export const SettingsView: React.FC = () => {
   };
 
   const handleTestKey = async () => {
-    const cleanKey = apiKey.trim();
-    if (!cleanKey) {
-      showToast('No API Key', 'Please enter a Gemini API key first.', 'warning');
+    const keyToTest = getActiveGeminiApiKey(apiKey);
+    if (!keyToTest) {
+      showToast('No API Key', 'No Gemini API key configured.', 'warning');
       return;
     }
     setIsTestingKey(true);
@@ -175,19 +179,15 @@ export const SettingsView: React.FC = () => {
 
     // Auto-discover models in parallel if not yet loaded from API
     if (!discoverySummary?.startsWith('Discovered')) {
-      fetchAvailableModels(cleanKey, false);
+      fetchAvailableModels(keyToTest, false);
     }
 
-    let activeModel = (selectedModel || 'gemini-2.0-flash').replace(/^models\//, '');
-    if (activeModel === 'gemini-2.5-flash') {
-      activeModel = 'gemini-2.0-flash';
-      setSelectedModel('gemini-2.0-flash');
-    }
+    let activeModel = sanitizeGeminiModel(selectedModel || DEFAULT_GEMINI_MODEL);
 
     const startTime = performance.now();
     try {
       let res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:generateContent?key=${cleanKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:generateContent?key=${keyToTest}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -199,10 +199,10 @@ export const SettingsView: React.FC = () => {
 
       let data = await res.json().catch(() => null);
 
-      // If model returned 404 (not found), attempt automated fallback probe with gemini-2.0-flash
-      if (res.status === 404 && activeModel !== 'gemini-2.0-flash') {
+      // If model returned 404 (not found), attempt automated fallback probe with gemini-3.6-flash
+      if (res.status === 404 && activeModel !== 'gemini-3.6-flash') {
         const fallbackRes = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${cleanKey}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${keyToTest}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -214,8 +214,8 @@ export const SettingsView: React.FC = () => {
         if (fallbackRes.ok) {
           res = fallbackRes;
           data = await fallbackRes.json().catch(() => null);
-          setSelectedModel('gemini-2.0-flash');
-          activeModel = 'gemini-2.0-flash';
+          setSelectedModel('gemini-3.6-flash');
+          activeModel = 'gemini-3.6-flash';
         }
       }
 
@@ -223,9 +223,10 @@ export const SettingsView: React.FC = () => {
 
       if (res.ok) {
         const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || 'OK';
+        const keyLabel = isUsingCustomGeminiKey(apiKey) ? 'Your Custom Key' : 'Built-in LOTAI Engine';
         setTestResult({
           status: 'success',
-          message: `Connection verified! Model '${activeModel}' is active and responding.`,
+          message: `Connection verified (${keyLabel})! Model '${activeModel}' is active and responding.`,
           modelTested: activeModel,
           latencyMs,
           sampleReply: reply
@@ -282,30 +283,71 @@ export const SettingsView: React.FC = () => {
 
       <form onSubmit={handleSaveProfile} className="space-y-6">
         {/* Gemini AI Configuration Card */}
-        <div className="p-6 rounded-2xl bg-gradient-to-b from-indigo-950/20 via-slate-900 to-slate-900 border border-indigo-500/20 space-y-4">
-          <div className="flex items-center space-x-2">
-            <div className="p-2 rounded-xl bg-indigo-600/20 text-indigo-400">
-              <Key className="w-5 h-5" />
+        <div className="p-6 rounded-2xl bg-gradient-to-b from-indigo-950/30 via-slate-900 to-slate-900 border border-indigo-500/25 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center space-x-3">
+              <div className="p-2.5 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">
+                <Sparkles className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center space-x-2">
+                  <h3 className="text-base font-bold text-white">LOTAI Gemini AI & Voice Engine</h3>
+                  {isUsingCustomGeminiKey(apiKey) ? (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                      Custom Key Active
+                    </span>
+                  ) : (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center space-x-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      <span>Built-in Active</span>
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Powered by Google Gemini 3.6 Flash for instant voice intent detection, auto-tagging, and intelligent coaching.
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-base font-bold text-white">Google Gemini AI Engine (BYOK)</h3>
-              <p className="text-xs text-slate-400">
-                LOTAI runs seamlessly offline with built-in heuristic NLP. Add your Gemini API key for deep coaching & synthesis.
-              </p>
-            </div>
+
+            {/* Reset to built-in button when custom key is entered */}
+            {isUsingCustomGeminiKey(apiKey) && (
+              <button
+                type="button"
+                onClick={() => {
+                  setApiKey('');
+                  setTestResult(null);
+                  showToast('Reset to Built-in', 'Switched back to built-in LOTAI Gemini Engine.');
+                }}
+                className="self-start sm:self-auto px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-semibold border border-slate-700 transition"
+              >
+                Use Built-in Key
+              </button>
+            )}
           </div>
 
-          <div className="space-y-4 pt-2">
+          {/* Built-in Engine Active Notice */}
+          {!isUsingCustomGeminiKey(apiKey) && (
+            <div className="px-3.5 py-2 rounded-xl bg-indigo-950/40 border border-indigo-800/40 text-xs text-indigo-200 flex items-center space-x-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>
+                <strong>Built-in AI Ready:</strong> Voice commands and life-tracking parse through Gemini 3.6 Flash automatically. No setup required!
+              </span>
+            </div>
+          )}
+
+          <div className="space-y-4 pt-1">
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="block text-xs font-semibold text-slate-400">Gemini API Key</label>
+                <label className="block text-xs font-semibold text-slate-400">
+                  Custom Gemini API Key <span className="text-slate-500 font-normal">(Optional Override)</span>
+                </label>
                 <a
                   href="https://aistudio.google.com/app/apikey"
                   target="_blank"
                   rel="noreferrer"
                   className="text-[11px] text-indigo-400 hover:text-indigo-300 flex items-center space-x-1 transition"
                 >
-                  <span>Get Free Key</span>
+                  <span>Get Personal Key</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
@@ -323,18 +365,19 @@ export const SettingsView: React.FC = () => {
                     }
                   }}
                   onBlur={() => {
-                    if (apiKey.trim().length >= 20 && !discoverySummary?.startsWith('Discovered')) {
-                      fetchAvailableModels(apiKey.trim(), false);
+                    const keyToScan = getActiveGeminiApiKey(apiKey);
+                    if (keyToScan && !discoverySummary?.startsWith('Discovered')) {
+                      fetchAvailableModels(keyToScan, false);
                     }
                   }}
-                  placeholder="AIzaSy..."
+                  placeholder="Leave blank to use built-in engine, or enter custom API key..."
                   className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 font-mono"
                 />
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    onClick={() => fetchAvailableModels(apiKey.trim(), true)}
-                    disabled={isDiscoveringModels || !apiKey.trim()}
+                    onClick={() => fetchAvailableModels(getActiveGeminiApiKey(apiKey), true)}
+                    disabled={isDiscoveringModels}
                     title="Query Google Generative Language API for the latest active models"
                     className="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 disabled:opacity-40 transition flex items-center space-x-1.5 shrink-0"
                   >
@@ -349,7 +392,7 @@ export const SettingsView: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleTestKey}
-                    disabled={isTestingKey || !apiKey.trim()}
+                    disabled={isTestingKey}
                     className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-md shadow-indigo-600/20 disabled:opacity-40 transition flex items-center space-x-1.5 shrink-0"
                   >
                     {isTestingKey ? (
@@ -406,7 +449,7 @@ export const SettingsView: React.FC = () => {
                       <p className="font-bold text-rose-200">Google Gemini API Connection Failed</p>
                       <p className="text-[11px] text-rose-300 font-mono break-all">{testResult.message}</p>
                       <p className="text-[11px] text-rose-400/90 font-normal">
-                        Tip: Verify your key has Google Generative Language API enabled. You can generate a free Gemini key in Google AI Studio.
+                        Tip: Verify your network connection and ensure your Google Gemini API key is valid.
                       </p>
                     </div>
                   </div>
@@ -442,8 +485,8 @@ export const SettingsView: React.FC = () => {
               {/* Quick Model Selector Pills */}
               <div className="flex flex-wrap gap-1.5 pt-2">
                 {[
-                  { id: 'gemini-2.0-flash', label: '2.0 Flash (Fastest)' },
-                  { id: 'gemini-2.0-flash-lite', label: '2.0 Flash Lite' },
+                  { id: 'gemini-3.6-flash', label: '3.6 Flash (Recommended)' },
+                  { id: 'gemini-2.5-flash', label: '2.5 Flash' },
                   { id: 'gemini-1.5-flash', label: '1.5 Flash' },
                   { id: 'gemini-1.5-pro', label: '1.5 Pro (Deep)' }
                 ].map((item) => (

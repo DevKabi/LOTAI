@@ -20,6 +20,7 @@ export class SpeechService {
   private static baseText: string = '';
   private static currentSessionTranscript: string = '';
   private static lastReportedFullText: string = '';
+  private static restartTimer: any = null;
 
   static isSpeechSupported(): boolean {
     return typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window);
@@ -53,7 +54,7 @@ export class SpeechService {
         this.recognition = new SpeechRecognition();
         this.recognition.continuous = true; // Continuous listening across multiple sentences
         this.recognition.interimResults = true; // Real-time interim results
-        this.recognition.lang = 'en-US';
+        this.recognition.lang = (typeof navigator !== 'undefined' && navigator.language) || 'en-US';
 
         this.recognition.onstart = () => {
           this.isListening = true;
@@ -74,8 +75,12 @@ export class SpeechService {
         };
 
         this.recognition.onerror = (event: any) => {
-          // 'no-speech' occurs during user pauses/thinking; do NOT stop listening!
+          // 'no-speech' or 'aborted' occurs during user pauses/thinking; do NOT stop listening!
           if (event.error === 'no-speech' || event.error === 'aborted') {
+            return;
+          }
+          if (event.error === 'network') {
+            console.warn('Speech recognition temporary network hiccup, maintaining transcript.');
             return;
           }
           console.warn('Speech recognition warning:', event.error);
@@ -83,24 +88,33 @@ export class SpeechService {
             this.shouldKeepListening = false;
             this.isListening = false;
             callbacks.onError?.('Microphone permission denied. Please allow microphone access in your browser.');
+          } else if (event.error === 'audio-capture') {
+            this.shouldKeepListening = false;
+            this.isListening = false;
+            callbacks.onError?.('No microphone detected. Please check your audio input settings.');
           }
         };
 
         this.recognition.onend = () => {
-          // If the user hasn't explicitly stopped listening, automatically restart!
+          this.isListening = false;
+          // If the user hasn't explicitly stopped listening, debounced restart!
           if (this.shouldKeepListening) {
             if (this.currentSessionTranscript) {
               this.baseText = (this.baseText + this.currentSessionTranscript).trim() + ' ';
               this.currentSessionTranscript = '';
             }
-            try {
-              this.recognition.start();
-              return;
-            } catch (e) {
-              console.warn('Continuous recognition restart notice:', e);
-            }
+            if (this.restartTimer) clearTimeout(this.restartTimer);
+            this.restartTimer = setTimeout(() => {
+              if (this.shouldKeepListening) {
+                try {
+                  this.recognition?.start();
+                } catch (e) {
+                  console.debug('Continuous recognition restart notice:', e);
+                }
+              }
+            }, 120);
+            return;
           }
-          this.isListening = false;
           callbacks.onEnd?.();
         };
 
@@ -120,7 +134,11 @@ export class SpeechService {
 
   static stopListening(): string {
     this.shouldKeepListening = false;
-    if (this.recognition && this.isListening) {
+    if (this.restartTimer) {
+      clearTimeout(this.restartTimer);
+      this.restartTimer = null;
+    }
+    if (this.recognition) {
       try {
         this.recognition.stop();
       } catch (e) {

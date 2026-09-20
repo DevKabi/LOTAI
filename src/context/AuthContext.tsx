@@ -125,7 +125,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Sign In with Email & Password
   const signInWithEmail = async (email: string, password: string) => {
     if (!isSupabaseConfigured) {
-      return { error: new Error('Supabase is not configured. Please add credentials to .env or use Demo Mode.') };
+      return { error: new Error('Cloud sync is not configured. Please add credentials to .env or use Demo Mode.') };
     }
 
     const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -135,7 +135,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Sign Up with Email, Password, and Name
   const signUpWithEmail = async (email: string, password: string, name?: string) => {
     if (!isSupabaseConfigured) {
-      return { error: new Error('Supabase is not configured. Please add credentials to .env or use Demo Mode.') };
+      return { error: new Error('Cloud sync is not configured. Please add credentials to .env or use Demo Mode.') };
     }
 
     const { data, error } = await supabase.auth.signUp({
@@ -158,7 +158,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Sign In / Sign Up with Google OAuth
   const signInWithGoogle = async () => {
     if (!isSupabaseConfigured) {
-      return { error: new Error('Supabase is not configured. Please add credentials to .env or use Demo Mode.') };
+      return { error: new Error('Cloud sync is not configured. Please add credentials to .env or use Demo Mode.') };
     }
 
     const redirectUrl = window.location.origin;
@@ -180,7 +180,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Password Reset Email
   const resetPasswordForEmail = async (email: string) => {
     if (!isSupabaseConfigured) {
-      return { error: new Error('Supabase is not configured. Please add credentials to .env.') };
+      return { error: new Error('Cloud sync is not configured. Please add credentials to .env.') };
     }
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {

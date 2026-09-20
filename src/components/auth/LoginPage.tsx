@@ -46,15 +46,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchView }) => {
       subtitle="Sign in to access your unified LifeHub and AI Coach"
     >
       <div className="space-y-4">
-        {/* Supabase Notice if not configured */}
+        {/* Cloud Notice if not configured */}
         {!isConfigured && (
           <div className="p-3.5 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 text-xs text-indigo-300 space-y-2">
             <div className="flex items-center space-x-1.5 font-bold">
               <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Supabase Ready</span>
+              <span>LOTAI Cloud Ready</span>
             </div>
             <p className="text-slate-300 leading-relaxed text-[11px]">
-              Supabase Auth is fully integrated. To connect your live Supabase project, add your keys to <code className="px-1 py-0.5 rounded bg-slate-900 font-mono">.env</code>. Or test immediately below:
+              LOTAI Cloud is integrated with instant local caching. You can explore immediately with Instant Preview below:
             </p>
             <button
               type="button"

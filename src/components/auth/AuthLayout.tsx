@@ -35,7 +35,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitl
 
         <div className="flex items-center space-x-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-slate-400">
           <ShieldCheck className={`w-3.5 h-3.5 ${isConfigured ? 'text-emerald-400' : 'text-amber-400'}`} />
-          <span>{isConfigured ? 'Supabase Connected' : 'Supabase Setup Required'}</span>
+          <span>{isConfigured ? 'LOTAI Cloud Connected' : 'Cloud Sync Ready'}</span>
         </div>
       </header>
 
@@ -57,7 +57,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitl
 
       {/* Footer */}
       <footer className="p-6 text-center text-xs text-slate-500 relative z-10">
-        LOTAI — Life On Track. Powered by AI. Protected by Supabase Auth.
+        LOTAI — Life On Track. Powered by AI. Protected by Cloud Security.
       </footer>
     </div>
   );

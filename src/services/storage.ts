@@ -28,8 +28,8 @@ export const StorageService = {
     }
     try {
       const parsed = JSON.parse(data);
-      if (parsed.geminiModel === 'gemini-2.5-flash') {
-        parsed.geminiModel = 'gemini-2.0-flash';
+      if (!parsed.geminiModel || parsed.geminiModel === 'gemini-2.0-flash' || parsed.geminiModel === 'gemini-2.5-flash') {
+        parsed.geminiModel = 'gemini-3.6-flash';
       }
       return { ...INITIAL_SETTINGS, ...parsed };
     } catch {

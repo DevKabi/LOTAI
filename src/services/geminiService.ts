@@ -1,4 +1,9 @@
 import { AnalyticsMetrics } from '../types';
+import { 
+  getActiveGeminiApiKey, 
+  DEFAULT_GEMINI_MODEL, 
+  sanitizeGeminiModel 
+} from '../config/geminiConfig';
 
 export interface AppContextSummary {
   lifeScore: number;
@@ -14,21 +19,15 @@ export interface AppContextSummary {
 }
 
 export class GeminiService {
-  private static sanitizeModel(modelName?: string): string {
-    if (!modelName || modelName.trim() === '' || modelName === 'gemini-2.5-flash') {
-      return 'gemini-2.0-flash';
-    }
-    return modelName.replace(/^models\//, '').trim();
-  }
-
   private static async callGenerateContent(
     modelName: string,
-    apiKey: string,
-    body: unknown
+    apiKey?: string,
+    body?: unknown
   ): Promise<Response> {
-    const cleanModel = this.sanitizeModel(modelName);
+    const cleanModel = sanitizeGeminiModel(modelName);
+    const effectiveKey = getActiveGeminiApiKey(apiKey);
     let res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${cleanModel}:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${cleanModel}:generateContent?key=${effectiveKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -36,11 +35,11 @@ export class GeminiService {
       }
     );
 
-    // If 404 and not already gemini-2.0-flash, defensive fallback retry with gemini-2.0-flash
-    if (res.status === 404 && cleanModel !== 'gemini-2.0-flash') {
-      console.warn(`Model '${cleanModel}' returned 404. Falling back to 'gemini-2.0-flash'...`);
+    // If 404, fallback to DEFAULT_GEMINI_MODEL (gemini-3.6-flash)
+    if (res.status === 404 && cleanModel !== DEFAULT_GEMINI_MODEL) {
+      console.warn(`Model '${cleanModel}' returned 404. Falling back to '${DEFAULT_GEMINI_MODEL}'...`);
       res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${DEFAULT_GEMINI_MODEL}:generateContent?key=${effectiveKey}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -58,9 +57,11 @@ export class GeminiService {
     userMessage: string,
     context: AppContextSummary,
     apiKey?: string,
-    modelName: string = 'gemini-2.0-flash'
+    modelName: string = DEFAULT_GEMINI_MODEL
   ): Promise<string> {
-    if (!apiKey || apiKey.trim() === '') {
+    const effectiveKey = getActiveGeminiApiKey(apiKey);
+
+    if (!effectiveKey || effectiveKey.trim() === '') {
       // Intelligent Local Rule-based Life Coach Fallback
       return this.generateLocalCoachResponse(userMessage, context);
     }
@@ -119,9 +120,10 @@ Response Guidelines:
   static async generateWeeklyLifeReport(
     metrics: AnalyticsMetrics,
     apiKey?: string,
-    modelName: string = 'gemini-2.0-flash'
+    modelName: string = DEFAULT_GEMINI_MODEL
   ): Promise<string> {
-    if (!apiKey || apiKey.trim() === '') {
+    const effectiveKey = getActiveGeminiApiKey(apiKey);
+    if (!effectiveKey || effectiveKey.trim() === '') {
       return this.generateLocalWeeklyReport(metrics);
     }
 
@@ -145,7 +147,7 @@ Generate a comprehensive, executive-grade Weekly Synthesis formatted with clean 
 Maintain a confident, motivating, and highly analytical tone. Keep within 250-350 words.`;
 
     try {
-      const res = await this.callGenerateContent(modelName, apiKey, {
+      const res = await this.callGenerateContent(modelName, effectiveKey, {
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
         generationConfig: { temperature: 0.6, maxOutputTokens: 1000 }
       });
@@ -163,9 +165,10 @@ Maintain a confident, motivating, and highly analytical tone. Keep within 250-35
   static async generateMonthlyLifeReport(
     metrics: AnalyticsMetrics,
     apiKey?: string,
-    modelName: string = 'gemini-2.0-flash'
+    modelName: string = DEFAULT_GEMINI_MODEL
   ): Promise<string> {
-    if (!apiKey || apiKey.trim() === '') {
+    const effectiveKey = getActiveGeminiApiKey(apiKey);
+    if (!effectiveKey || effectiveKey.trim() === '') {
       return this.generateLocalMonthlyReport(metrics);
     }
 
@@ -188,7 +191,7 @@ Generate an executive 30-Day Monthly Review formatted with clean Markdown:
 Maintain an authoritative, inspiring, and data-backed tone. Keep within 300-400 words.`;
 
     try {
-      const res = await this.callGenerateContent(modelName, apiKey, {
+      const res = await this.callGenerateContent(modelName, effectiveKey, {
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
         generationConfig: { temperature: 0.6, maxOutputTokens: 1200 }
       });
@@ -206,9 +209,10 @@ Maintain an authoritative, inspiring, and data-backed tone. Keep within 300-400 
   static async generateAIInsights(
     metrics: AnalyticsMetrics,
     apiKey?: string,
-    modelName: string = 'gemini-2.0-flash'
+    modelName: string = DEFAULT_GEMINI_MODEL
   ): Promise<string> {
-    if (!apiKey || apiKey.trim() === '') {
+    const effectiveKey = getActiveGeminiApiKey(apiKey);
+    if (!effectiveKey || effectiveKey.trim() === '') {
       return this.generateLocalAIInsights(metrics);
     }
 
@@ -218,7 +222,7 @@ Goals: ${metrics.goals.overallCompletionRate}%, Habits 7d: ${metrics.habits.cons
 Provide 3 concise, highly actionable, cross-pillar correlation discoveries. Format with bold headers and short 2-sentence explanations highlighting cause-and-effect (e.g. how sleep affects task completion, or how budget discipline affects peace of mind).`;
 
     try {
-      const res = await this.callGenerateContent(modelName, apiKey, {
+      const res = await this.callGenerateContent(modelName, effectiveKey, {
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
         generationConfig: { temperature: 0.7, maxOutputTokens: 500 }
       });
@@ -236,7 +240,7 @@ Provide 3 concise, highly actionable, cross-pillar correlation discoveries. Form
   static async generateWeeklyReport(
     context: AppContextSummary,
     apiKey?: string,
-    modelName: string = 'gemini-2.0-flash'
+    modelName: string = DEFAULT_GEMINI_MODEL
   ): Promise<string> {
     if (!apiKey || apiKey.trim() === '') {
       return `### 🌟 LOTAI Weekly Life Synthesis

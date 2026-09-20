@@ -13,7 +13,7 @@ export const INITIAL_SETTINGS: UserSettings = {
   dailySleepHours: 8,
   monthlyBudget: 3500,
   geminiApiKey: '',
-  geminiModel: 'gemini-2.0-flash',
+  geminiModel: 'gemini-3.6-flash',
   soundEffects: true,
   voiceFeedback: false,
   theme: 'dark'

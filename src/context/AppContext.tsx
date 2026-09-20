@@ -185,8 +185,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       if (healthRes.status === 'fulfilled') setHealth(healthRes.value);
       if (journalRes.status === 'fulfilled') setJournal(journalRes.value);
     } catch (err) {
-      console.error('Failed to load data from Supabase:', err);
-      showToast('Data sync error', 'Could not load records from Supabase.', 'warning');
+      console.error('Failed to load data from Cloud:', err);
+      showToast('Data sync error', 'Could not load records from Cloud.', 'warning');
     } finally {
       setIsDataLoading(false);
     }
@@ -233,7 +233,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       try {
         const created = await dbService.createGoal(newGoal, user.id);
         setGoals(prev => prev.map(g => g.id === tempId ? created : g));
-        showToast('Goal created in Supabase!', `"${created.title}" added to roadmap.`);
+        showToast('Goal created!', `"${created.title}" added to roadmap.`);
       } catch (err: any) {
         setGoals(prev => prev.filter(g => g.id !== tempId));
         showToast('Failed to save goal', err.message, 'warning');
@@ -299,7 +299,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       try {
         const created = await dbService.createTask(newTask, user.id);
         setTasks(prev => prev.map(t => t.id === tempId ? created : t));
-        showToast('Task added in Supabase', created.title);
+        showToast('Task added', created.title);
       } catch (err: any) {
         setTasks(prev => prev.filter(t => t.id !== tempId));
         showToast('Failed to add task', err.message, 'warning');
@@ -363,7 +363,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       try {
         const created = await dbService.createHabit(newHabit, user.id);
         setHabits(prev => prev.map(h => h.id === tempId ? created : h));
-        showToast('Habit tracked in Supabase', `Started "${created.title}".`);
+        showToast('Habit tracked', `Started "${created.title}".`);
       } catch (err: any) {
         setHabits(prev => prev.filter(h => h.id !== tempId));
         showToast('Failed to track habit', err.message, 'warning');
@@ -427,7 +427,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         const created = await dbService.createFinance(rec, user.id);
         setFinances(prev => prev.map(f => f.id === tempId ? created : f));
         showToast(
-          created.type === 'expense' ? 'Expense logged in Supabase' : 'Income added in Supabase',
+          created.type === 'expense' ? 'Expense logged' : 'Income added',
           `${settings.currency}${created.amount.toFixed(2)} — ${created.description}`
         );
       } catch (err: any) {
@@ -600,7 +600,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       try {
         const created = await dbService.createJournal(entry, user.id);
         setJournal(prev => prev.map(j => j.id === tempId ? created : j));
-        showToast('Journal saved in Supabase ✍️', `Mood: ${created.mood}`);
+        showToast('Journal saved ✍️', `Mood: ${created.mood}`);
       } catch (err: any) {
         setJournal(prev => prev.filter(j => j.id !== tempId));
         showToast('Failed to save reflection', err.message, 'warning');
@@ -638,7 +638,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const exportData = () => {
     const fullBackup = {
       version: '2.0',
-      source: 'Supabase & LOTAI Client',
+      source: 'LOTAI Cloud & Client',
       exportedAt: new Date().toISOString(),
       settings,
       goals,
@@ -652,7 +652,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `LOTAI_Supabase_Backup_${getTodayKey()}.json`;
+    link.download = `LOTAI_Backup_${getTodayKey()}.json`;
     link.click();
     URL.revokeObjectURL(url);
     showToast('Export successful', 'LOTAI backup downloaded.');
@@ -786,8 +786,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         date
       }, user?.id || 'demo-user');
 
-      showToast('Mind Note Saved', `"${title}" saved to mind_notes`, 'success');
-      return `Mind Note "${title}" saved in Supabase (table: mind_notes).`;
+      showToast('Mind Note Saved', `"${title}" saved to mind notes`, 'success');
+      return `Mind Note "${title}" saved to Cloud.`;
     }
 
     switch (module) {
@@ -808,25 +808,25 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         });
 
         const subTypeLabel = subType.toUpperCase();
-        return `${subTypeLabel} of ${fields.currencySymbol || settings.currency}${amount.toLocaleString()} saved in Supabase (table: finance_transactions).`;
+        return `${subTypeLabel} of ${fields.currencySymbol || settings.currency}${amount.toLocaleString()} saved to Cloud.`;
       }
 
       case 'health': {
         if (fields.weightKg) {
           await logWeight(fields.weightKg);
-          return `Weight (${fields.weightKg} kg) saved in Supabase (table: health_logs).`;
+          return `Weight (${fields.weightKg} kg) saved to Cloud.`;
         }
         if (fields.waterIntakeMl) {
           await logWater(fields.waterIntakeMl);
-          return `Hydration (${fields.waterIntakeMl} ml) saved in Supabase (table: health_logs).`;
+          return `Hydration (${fields.waterIntakeMl} ml) saved to Cloud.`;
         }
         if (fields.sleepHours) {
           await logSleep(fields.sleepHours, fields.sleepQuality || 'good');
-          return `Sleep (${fields.sleepHours}h) saved in Supabase (table: health_logs).`;
+          return `Sleep (${fields.sleepHours}h) saved to Cloud.`;
         }
         if (fields.workoutMinutes) {
           await logWorkout(fields.workoutMinutes, fields.workoutType || 'Workout', fields.caloriesBurned);
-          return `Workout (${fields.workoutMinutes}m ${fields.workoutType || 'Workout'}) saved in Supabase (table: health_logs).`;
+          return `Workout (${fields.workoutMinutes}m ${fields.workoutType || 'Workout'}) saved to Cloud.`;
         }
         if (fields.steps) {
           const existing = health.find(h => h.date === today);
@@ -849,7 +849,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
               await dbService.upsertHealthLog(optimistic, user.id);
             } catch {}
           }
-          return `Steps (${fields.steps.toLocaleString()}) saved in Supabase (table: health_logs).`;
+          return `Steps (${fields.steps.toLocaleString()}) saved to Cloud.`;
         }
         if (fields.bloodPressure) {
           const existing = health.find(h => h.date === today);
@@ -872,9 +872,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
               await dbService.upsertHealthLog(optimistic, user.id);
             } catch {}
           }
-          return `Blood Pressure (${fields.bloodPressure}) saved in Supabase (table: health_logs).`;
+          return `Blood Pressure (${fields.bloodPressure}) saved to Cloud.`;
         }
-        return 'Health record saved in Supabase (table: health_logs).';
+        return 'Health record saved to Cloud.';
       }
 
       case 'habits': {
@@ -889,12 +889,12 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
             targetCount: 1,
             color: '#6366f1'
           });
-          return `Created habit "${fields.habitName}" and saved in Supabase (table: habits).`;
+          return `Created habit "${fields.habitName}" and saved to Cloud.`;
         } else if (matched) {
           await toggleHabitToday(matched.id);
-          return `Marked "${matched.title}" as completed today in Supabase (table: habits).`;
+          return `Marked "${matched.title}" as completed today in Cloud.`;
         }
-        return 'Habit checked in (table: habits).';
+        return 'Habit checked in.';
       }
 
       case 'tasks': {
@@ -910,7 +910,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
           dueDate,
           category
         });
-        return `Task "${title}" saved in Supabase (table: tasks, Due: ${dueDate}, Priority: ${priority}).`;
+        return `Task "${title}" saved to Cloud (Due: ${dueDate}, Priority: ${priority}).`;
       }
 
       case 'goals': {
@@ -930,7 +930,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
           targetMetric: fields.targetMetric,
           milestones
         });
-        return `Goal "${title}" saved in Supabase (table: goals, Category: ${category}).`;
+        return `Goal "${title}" saved to Cloud (Category: ${category}).`;
       }
 
       case 'journal': {
@@ -948,7 +948,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
           tags,
           aiSentiment: mood === 'productive' || mood === 'joyful' ? 'positive' : 'reflective'
         });
-        return `Journal reflection saved in Supabase (table: journal_entries, Mood: ${mood}).`;
+        return `Journal reflection saved to Cloud (Mood: ${mood}).`;
       }
 
       default:

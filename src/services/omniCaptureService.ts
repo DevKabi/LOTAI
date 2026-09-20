@@ -8,6 +8,11 @@ import {
 } from '../types';
 import { IntentRouter } from './intentRouter';
 import { getFewShotPromptSamples, MASTER_CATEGORY_MAP } from './intentDataset';
+import { 
+  getActiveGeminiApiKey, 
+  DEFAULT_GEMINI_MODEL, 
+  sanitizeGeminiModel 
+} from '../config/geminiConfig';
 
 export class OmniCaptureService {
   /**
@@ -16,17 +21,20 @@ export class OmniCaptureService {
   static async analyzeInput(
     rawInput: string,
     apiKey?: string,
-    modelName: string = 'gemini-2.0-flash'
+    modelName: string = DEFAULT_GEMINI_MODEL
   ): Promise<OmniCaptureResult> {
     const text = rawInput.trim();
     if (!text) {
       return IntentRouter.routeInput('');
     }
 
-    // If API key is present, try Gemini API with JSON structured prompt
-    if (apiKey && apiKey.trim() !== '') {
+    const effectiveKey = getActiveGeminiApiKey(apiKey);
+    const cleanModel = sanitizeGeminiModel(modelName);
+
+    // Always attempt Gemini AI parsing first using the active key
+    if (effectiveKey && effectiveKey.trim() !== '') {
       try {
-        const geminiResult = await this.callGeminiParser(text, apiKey, modelName);
+        const geminiResult = await this.callGeminiParser(text, effectiveKey, cleanModel);
         if (geminiResult) {
           return geminiResult;
         }
@@ -35,7 +43,7 @@ export class OmniCaptureService {
       }
     }
 
-    // Intelligent Local Intent Router (Priority Rule Pipeline)
+    // Intelligent Local Intent Router (Priority Rule Pipeline) fallback
     return this.parseLocalHeuristic(text);
   }
 
@@ -130,7 +138,8 @@ Output strictly valid JSON with no markdown wrapping matching this schema:
   }
 }`;
 
-    const cleanModel = (!modelName || modelName === 'gemini-2.5-flash' ? 'gemini-2.0-flash' : modelName).replace(/^models\//, '').trim();
+    const cleanModel = sanitizeGeminiModel(modelName);
+    const effectiveKey = getActiveGeminiApiKey(apiKey);
 
     const requestBody = JSON.stringify({
       contents: [
@@ -147,7 +156,7 @@ Output strictly valid JSON with no markdown wrapping matching this schema:
     });
 
     let res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${cleanModel}:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${cleanModel}:generateContent?key=${effectiveKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -156,10 +165,10 @@ Output strictly valid JSON with no markdown wrapping matching this schema:
     );
 
     // Defensive fallback if 404
-    if (res.status === 404 && cleanModel !== 'gemini-2.0-flash') {
-      console.warn(`OmniCapture: Model '${cleanModel}' returned 404. Retrying with 'gemini-2.0-flash'...`);
+    if (res.status === 404 && cleanModel !== DEFAULT_GEMINI_MODEL) {
+      console.warn(`OmniCapture: Model '${cleanModel}' returned 404. Retrying with '${DEFAULT_GEMINI_MODEL}'...`);
       res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${DEFAULT_GEMINI_MODEL}:generateContent?key=${effectiveKey}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
