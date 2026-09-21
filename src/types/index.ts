@@ -9,6 +9,19 @@ export type LifeModule =
   | 'analytics'
   | 'settings';
 
+export type QuickModalType = 
+  | 'goal'
+  | 'task'
+  | 'habit'
+  | 'expense'
+  | 'income'
+  | 'health'
+  | 'journal'
+  | 'mind'
+  | 'focus'
+  | 'voice'
+  | null;
+
 export type GoalCategory = 'Career' | 'Health' | 'Finance' | 'Personal' | 'Learning' | 'Relationships';
 export type GoalStatus = 'not-started' | 'in-progress' | 'completed' | 'on-hold';
 

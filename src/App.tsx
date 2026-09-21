@@ -13,6 +13,7 @@ import { JournalView } from './components/modules/JournalView';
 import { AnalyticsView } from './components/modules/AnalyticsView';
 import { SettingsView } from './components/modules/SettingsView';
 import { OmniInputModal } from './components/omni/OmniInputModal';
+import { LifeHubQuickModals } from './components/modals/LifeHubQuickModals';
 import { AICoachDrawer } from './components/coach/AICoachDrawer';
 import { ToastContainer } from './components/common/ToastContainer';
 import { AuthFlow } from './components/auth/AuthFlow';
@@ -133,6 +134,7 @@ export const AppContent: React.FC = () => {
 
       {/* Global Modals & Drawers */}
       <OmniInputModal />
+      <LifeHubQuickModals />
       <AICoachDrawer />
       <ToastContainer />
     </div>

@@ -13,7 +13,8 @@ import {
   OmniCaptureResult,
   FinanceCategory,
   GoalCategory,
-  AnalyticsMetrics
+  AnalyticsMetrics,
+  QuickModalType
 } from '../types';
 import { StorageService } from '../services/storage';
 import { dbService } from '../services/dbService';
@@ -93,6 +94,9 @@ interface AppContextType {
   setIsOmniModalOpen: (open: boolean) => void;
   isCoachDrawerOpen: boolean;
   setIsCoachDrawerOpen: (open: boolean) => void;
+  quickModalType: QuickModalType;
+  openQuickModal: (type: QuickModalType) => void;
+  closeQuickModal: () => void;
 
   // Toasts
   toasts: ToastMessage[];
@@ -119,7 +123,16 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const [isOmniModalOpen, setIsOmniModalOpen] = useState(false);
   const [isCoachDrawerOpen, setIsCoachDrawerOpen] = useState(false);
+  const [quickModalType, setQuickModalType] = useState<QuickModalType>(null);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  const openQuickModal = useCallback((type: QuickModalType) => {
+    setQuickModalType(type);
+  }, []);
+
+  const closeQuickModal = useCallback(() => {
+    setQuickModalType(null);
+  }, []);
 
   // Toast Helper
   const showToast = useCallback((title: string, description?: string, type: 'success' | 'info' | 'warning' = 'success') => {
@@ -1001,6 +1014,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         setIsOmniModalOpen,
         isCoachDrawerOpen,
         setIsCoachDrawerOpen,
+        quickModalType,
+        openQuickModal,
+        closeQuickModal,
         toasts,
         dismissToast,
         showToast
