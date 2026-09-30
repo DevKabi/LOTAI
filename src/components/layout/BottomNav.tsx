@@ -33,14 +33,14 @@ export const BottomNav: React.FC = () => {
       label: 'Tasks', 
       icon: CheckSquare,
       badge: pendingTasksCount > 0 ? pendingTasksCount : undefined,
-      badgeColor: 'bg-rose-500'
+      badgeColor: 'bg-[#FFC61A] text-black font-black'
     },
     { 
       id: 'habits', 
       label: 'Habits', 
       icon: Repeat,
       badge: uncompletedHabitsCount > 0 ? uncompletedHabitsCount : undefined,
-      badgeColor: 'bg-amber-500'
+      badgeColor: 'bg-[#19B000] text-black font-black'
     },
     { id: 'finance', label: 'Finance', icon: DollarSign }
   ];
@@ -55,7 +55,7 @@ export const BottomNav: React.FC = () => {
   return (
     <>
       <nav 
-        className="fixed bottom-0 left-0 right-0 z-40 bg-slate-950/92 backdrop-blur-xl border-t border-slate-800/80 lg:hidden shadow-2xl transition-all"
+        className="fixed bottom-0 left-0 right-0 z-40 bg-[#0D1117]/95 backdrop-blur-xl border-t border-[#1B222D] lg:hidden shadow-2xl transition-all select-none"
         style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         aria-label="Mobile Navigation"
       >
@@ -72,20 +72,20 @@ export const BottomNav: React.FC = () => {
                 }}
                 className={`relative flex flex-col items-center justify-center min-h-[50px] py-1 rounded-xl transition-all duration-200 active:scale-95 ${
                   isActive 
-                    ? 'text-indigo-400 font-bold' 
-                    : 'text-slate-400 hover:text-slate-200 font-medium'
+                    ? 'text-[#4CAF00] font-heading font-black' 
+                    : 'text-slate-400 hover:text-white font-medium'
                 }`}
                 aria-label={tab.label}
               >
                 {/* Active Indicator Top Glow */}
                 {isActive && (
-                  <span className="absolute top-0.5 w-6 h-0.5 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 shadow-sm shadow-indigo-500/80" />
+                  <span className="absolute top-0.5 w-6 h-0.5 rounded-full bg-gradient-to-r from-[#19B000] to-[#4CAF00] shadow-sm shadow-[#19B000]/80" />
                 )}
 
                 <div className="relative">
-                  <Icon className={`w-5 h-5 transition-transform ${isActive ? 'scale-110 text-indigo-400' : 'text-slate-400'}`} />
+                  <Icon className={`w-5 h-5 transition-transform ${isActive ? 'scale-110 text-[#4CAF00]' : 'text-slate-400'}`} />
                   {tab.badge !== undefined && tab.badge > 0 && (
-                    <span className={`absolute -top-1.5 -right-2 flex items-center justify-center min-w-[15px] h-[15px] px-1 text-[9px] font-black text-white rounded-full ${tab.badgeColor} ring-2 ring-slate-950 shadow-sm`}>
+                    <span className={`absolute -top-1.5 -right-2 flex items-center justify-center min-w-[15px] h-[15px] px-1 text-[9px] font-black rounded-full ${tab.badgeColor} ring-2 ring-[#0D1117] shadow-sm`}>
                       {tab.badge > 9 ? '9+' : tab.badge}
                     </span>
                   )}
@@ -103,17 +103,17 @@ export const BottomNav: React.FC = () => {
             onClick={() => setIsMoreOpen(true)}
             className={`relative flex flex-col items-center justify-center min-h-[50px] py-1 rounded-xl transition-all duration-200 active:scale-95 ${
               isMoreActive 
-                ? 'text-indigo-400 font-bold' 
-                : 'text-slate-400 hover:text-slate-200 font-medium'
+                ? 'text-[#4CAF00] font-heading font-black' 
+                : 'text-slate-400 hover:text-white font-medium'
             }`}
             aria-label="More Life Modules"
           >
             {isMoreActive && (
-              <span className="absolute top-0.5 w-6 h-0.5 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 shadow-sm shadow-indigo-500/80" />
+              <span className="absolute top-0.5 w-6 h-0.5 rounded-full bg-gradient-to-r from-[#19B000] to-[#4CAF00] shadow-sm shadow-[#19B000]/80" />
             )}
 
             <div className="relative">
-              <MoreHorizontal className={`w-5 h-5 transition-transform ${isMoreActive ? 'scale-110 text-indigo-400' : 'text-slate-400'}`} />
+              <MoreHorizontal className={`w-5 h-5 transition-transform ${isMoreActive ? 'scale-110 text-[#4CAF00]' : 'text-slate-400'}`} />
             </div>
 
             <span className="text-[10px] tracking-tight mt-1 truncate max-w-[54px]">

@@ -239,21 +239,21 @@ export const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-[#050816] text-slate-100 font-['Plus_Jakarta_Sans',sans-serif] selection:bg-indigo-500 selection:text-white flex flex-col overflow-x-hidden">
+    <div className="min-h-screen w-full bg-[#050505] text-[#F0F6FC] font-sans selection:bg-[#19B000] selection:text-black flex flex-col overflow-x-hidden">
       
       {/* ========================================================================= */}
       {/* STICKY TOP HEADER (COVERS HEADER COMPLETELY, ONE-LINE ACTIONS ON MOBILE)   */}
       {/* ========================================================================= */}
-      <header className="sticky top-0 z-50 w-full bg-[#050816]/95 backdrop-blur-2xl border-b border-slate-800/80 px-2.5 sm:px-6 lg:px-12 py-2 sm:py-3.5">
+      <header className="sticky top-0 z-50 w-full bg-[#050505]/95 backdrop-blur-2xl border-b border-[#1B222D] px-2.5 sm:px-6 lg:px-12 py-2 sm:py-3.5">
         <div className="max-w-[1800px] mx-auto flex items-center justify-between gap-1.5 sm:gap-2">
           {/* Brand */}
           <div className="flex items-center space-x-1.5 sm:space-x-3 shrink-0">
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-[#19B000] via-[#4CAF00] to-[#FFC61A] flex items-center justify-center shadow-lg shadow-[#19B000]/30">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black" />
             </div>
             <div className="flex items-center space-x-2">
-              <span className="text-sm sm:text-lg font-black tracking-tight text-white">LOTAI</span>
-              <span className="hidden md:inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+              <span className="text-sm sm:text-lg font-heading font-black tracking-tight text-white">LOTAI</span>
+              <span className="hidden md:inline-block text-[10px] uppercase font-heading font-bold tracking-wider px-2 py-0.5 rounded-md bg-[#19B000]/10 text-[#4CAF00] border border-[#19B000]/20">
                 Life On Track AI
               </span>
             </div>
@@ -263,14 +263,14 @@ export const LandingPage: React.FC = () => {
           <div className="flex items-center space-x-1 sm:space-x-3 shrink-0 flex-nowrap whitespace-nowrap">
             <button
               onClick={() => openAuth('login')}
-              className="px-2 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs sm:text-sm font-semibold border border-slate-700/80 active:scale-95 transition whitespace-nowrap"
+              className="px-2 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-[#11161D] hover:bg-[#1B222D] text-[#C9D1D9] text-xs sm:text-sm font-semibold border border-[#1B222D] active:scale-95 transition whitespace-nowrap"
             >
               Sign In
             </button>
 
             <button
               onClick={() => openAuth('signup')}
-              className="px-2.5 sm:px-5 py-1.5 sm:py-2 rounded-xl bg-[#6D5DFE] hover:bg-[#5a4ae6] text-white text-xs sm:text-sm font-bold shadow-lg shadow-indigo-600/30 active:scale-95 transition whitespace-nowrap flex items-center space-x-1"
+              className="px-2.5 sm:px-5 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#19B000] to-[#4CAF00] hover:brightness-110 text-black text-xs sm:text-sm font-heading font-black shadow-lg shadow-[#19B000]/30 active:scale-95 transition whitespace-nowrap flex items-center space-x-1"
             >
               <span className="hidden min-[380px]:inline">Start Your Journey</span>
               <span className="min-[380px]:hidden">Start Journey</span>
@@ -279,11 +279,11 @@ export const LandingPage: React.FC = () => {
 
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 active:scale-95 transition flex items-center space-x-1.5 text-xs sm:text-sm font-semibold whitespace-nowrap"
+              className="px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-[#FFC61A]/15 hover:bg-[#FFC61A]/25 text-[#FFD43B] border border-[#FFC61A]/30 active:scale-95 transition flex items-center space-x-1.5 text-xs sm:text-sm font-heading font-bold whitespace-nowrap"
               title="Install LOTAI App & PWA Options"
               aria-label="Install App"
             >
-              <Download className="w-3.5 h-3.5 text-purple-300" />
+              <Download className="w-3.5 h-3.5 text-[#FFD43B]" />
               <span className="hidden sm:inline">Install App</span>
             </button>
           </div>
@@ -301,19 +301,19 @@ export const LandingPage: React.FC = () => {
             
             {/* Left Column (lg:col-span-6): Hero Pitch & Single CTA */}
             <div className="lg:col-span-6 space-y-5 sm:space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold">
-                <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#19B000]/10 border border-[#19B000]/25 text-[#4CAF00] text-xs font-heading font-bold">
+                <Sparkles className="w-3.5 h-3.5 text-[#4CAF00]" />
                 <span>AI-Powered Personal Life Operating System</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.12]">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-heading font-black text-white tracking-tight leading-[1.12]">
                 Your Entire Life, <br />
-                <span className="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#19B000] via-[#4CAF00] to-[#FFC61A] bg-clip-text text-transparent">
                   Organised by Artificial Intelligence.
                 </span>
               </h1>
 
-              <p className="text-xs sm:text-sm lg:text-base text-slate-300 leading-relaxed max-w-xl mx-auto lg:mx-0">
+              <p className="text-xs sm:text-sm lg:text-base text-[#8B949E] leading-relaxed max-w-xl mx-auto lg:mx-0">
                 Stop juggling fragmented apps for tasks, finances, habits, workouts, goals, and reflections. 
                 Speak or type anything naturally—LOTAI classifies your intent, extracts data fields, and keeps your entire life on track.
               </p>
@@ -322,33 +322,33 @@ export const LandingPage: React.FC = () => {
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
                 <button
                   onClick={() => openAuth('signup')}
-                  className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-[#6D5DFE] hover:bg-[#5a4ae6] text-white font-bold text-sm sm:text-base shadow-xl shadow-indigo-600/30 transition active:scale-95 flex items-center justify-center space-x-2 min-h-[48px]"
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#19B000] to-[#4CAF00] hover:brightness-110 text-black font-heading font-black text-sm sm:text-base shadow-xl shadow-[#19B000]/30 transition active:scale-95 flex items-center justify-center space-x-2 min-h-[48px]"
                 >
                   <span>Start Your Journey</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <button
                   onClick={promptInstall}
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-200 border border-purple-500/30 font-bold text-sm sm:text-base shadow-lg transition active:scale-95 flex items-center justify-center space-x-2 min-h-[48px]"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#FFC61A]/15 hover:bg-[#FFC61A]/25 text-[#FFD43B] border border-[#FFC61A]/30 font-heading font-bold text-sm sm:text-base shadow-lg shadow-[#FFC61A]/10 transition active:scale-95 flex items-center justify-center space-x-2 min-h-[48px]"
                   title="Install LOTAI PWA directly on your device"
                 >
-                  <Download className="w-4 h-4 text-purple-300" />
+                  <Download className="w-4 h-4 text-[#FFD43B]" />
                   <span>{isIOS ? 'Add to Home Screen' : 'Install PWA App'}</span>
                 </button>
               </div>
 
               {/* Trust Badges */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 pt-2 text-[11px] text-slate-400">
-                <span className="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-slate-900/60 border border-slate-800">
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 pt-2 text-[11px] text-[#8B949E]">
+                <span className="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-[#0D1117] border border-[#1B222D]">
+                  <Check className="w-3.5 h-3.5 text-[#19B000]" />
                   <span>Zero Manual Tagging</span>
                 </span>
-                <span className="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-slate-900/60 border border-slate-800">
-                  <Check className="w-3.5 h-3.5 text-indigo-400" />
+                <span className="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-[#0D1117] border border-[#1B222D]">
+                  <Check className="w-3.5 h-3.5 text-[#4CAF00]" />
                   <span>8 Interconnected Pillars</span>
                 </span>
-                <span className="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-slate-900/60 border border-slate-800">
-                  <Check className="w-3.5 h-3.5 text-purple-400" />
+                <span className="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-[#0D1117] border border-[#1B222D]">
+                  <Check className="w-3.5 h-3.5 text-[#FFC61A]" />
                   <span>100% Private & PWA Offline</span>
                 </span>
               </div>
@@ -356,25 +356,25 @@ export const LandingPage: React.FC = () => {
 
             {/* Right Column (lg:col-span-6): Interactive Omni Capture Simulator */}
             <div className="lg:col-span-6 w-full">
-              <div className="w-full p-5 sm:p-7 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-2xl backdrop-blur-xl relative overflow-hidden">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-800">
+              <div className="w-full p-5 sm:p-7 rounded-3xl bg-[#0D1117] border border-[#1B222D] shadow-2xl backdrop-blur-xl relative overflow-hidden">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-[#1B222D]">
                   <div className="flex items-center space-x-2">
-                    <span className="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                    <span className="p-2 rounded-xl bg-[#19B000]/15 text-[#4CAF00] border border-[#19B000]/30">
                       <Mic className="w-4 h-4" />
                     </span>
                     <div>
-                      <h3 className="text-sm sm:text-base font-bold text-white">Omni Capture Live Simulator</h3>
-                      <p className="text-xs text-slate-400">Click any natural prompt below to watch the Gemini AI Intent Router in action</p>
+                      <h3 className="text-sm sm:text-base font-heading font-black text-white">Omni Capture Live Simulator</h3>
+                      <p className="text-xs text-[#8B949E]">Click any natural prompt below to watch the Gemini AI Intent Router in action</p>
                     </div>
                   </div>
-                  <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold self-start sm:self-auto">
+                  <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-[#19B000]/15 text-[#4CAF00] border border-[#19B000]/30 font-heading font-bold self-start sm:self-auto">
                     Live Engine Active
                   </span>
                 </div>
 
                 {/* Prompt Selector Pills */}
                 <div className="py-3">
-                  <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-2">Select a Life Input Example:</p>
+                  <p className="text-[10px] uppercase font-heading font-bold tracking-wider text-[#8B949E] mb-2">Select a Life Input Example:</p>
                   <div className="flex flex-wrap gap-2">
                     {simulatorPrompts.map((p, idx) => {
                       const isSelected = idx === activePromptIndex;
@@ -382,10 +382,10 @@ export const LandingPage: React.FC = () => {
                         <button
                           key={idx}
                           onClick={() => setActivePromptIndex(idx)}
-                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition border select-none ${
+                          className={`px-3 py-1.5 rounded-xl text-xs font-heading font-bold transition border select-none ${
                             isSelected
-                              ? 'bg-indigo-600 text-white border-indigo-500 shadow-md shadow-indigo-600/30 scale-[1.02]'
-                              : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                              ? 'bg-gradient-to-r from-[#19B000] to-[#4CAF00] text-black shadow-md shadow-[#19B000]/30 scale-[1.02]'
+                              : 'bg-[#11161D] text-[#8B949E] border-[#1B222D] hover:border-[#19B000]/40 hover:text-white'
                           }`}
                         >
                           "{p.text}"
@@ -396,56 +396,56 @@ export const LandingPage: React.FC = () => {
                 </div>
 
                 {/* Processing Preview Box */}
-                <div className="mt-2 p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800/80 space-y-3.5">
-                  <div className="flex items-center justify-between text-xs pb-3 border-b border-slate-800">
+                <div className="mt-2 p-4 sm:p-5 rounded-2xl bg-[#050505] border border-[#1B222D] space-y-3.5">
+                  <div className="flex items-center justify-between text-xs pb-3 border-b border-[#1B222D]">
                     <div className="flex items-center space-x-2 truncate">
-                      <span className="text-slate-400 font-medium">Input Captured:</span>
-                      <span className="text-white font-mono bg-slate-900 px-2 py-0.5 rounded border border-slate-800 truncate">
+                      <span className="text-[#8B949E] font-medium">Input Captured:</span>
+                      <span className="text-white font-mono bg-[#11161D] px-2 py-0.5 rounded border border-[#1B222D] truncate">
                         "{activePrompt.text}"
                       </span>
                     </div>
-                    <span className="text-emerald-400 text-[11px] font-bold shrink-0 ml-2">
+                    <span className="text-[#4CAF00] text-[11px] font-heading font-bold shrink-0 ml-2">
                       {activePrompt.confidence} Intent Accuracy
                     </span>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800/80 space-y-1">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Target Life Pillar</span>
-                      <div className="flex items-center space-x-2 text-sm font-bold text-white">
-                        <span className={`px-2 py-0.5 rounded border text-xs font-semibold ${activePrompt.badgeColor}`}>
+                    <div className="p-3 rounded-xl bg-[#11161D] border border-[#1B222D] space-y-1">
+                      <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-[#8B949E]">Target Life Pillar</span>
+                      <div className="flex items-center space-x-2 text-sm font-heading font-bold text-white">
+                        <span className={`px-2 py-0.5 rounded border text-xs font-heading font-bold ${activePrompt.badgeColor}`}>
                           {activePrompt.module}
                         </span>
                         <span>{activePrompt.moduleLabel}</span>
                       </div>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800/80 space-y-1">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Taxonomy Classification</span>
-                      <div className="text-xs sm:text-sm font-semibold text-indigo-300">
+                    <div className="p-3 rounded-xl bg-[#11161D] border border-[#1B222D] space-y-1">
+                      <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-[#8B949E]">Taxonomy Classification</span>
+                      <div className="text-xs sm:text-sm font-heading font-bold text-[#4CAF00]">
                         {activePrompt.category}
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/60 space-y-2">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Automated Structured Database Fields</span>
+                  <div className="p-3 rounded-xl bg-[#11161D]/70 border border-[#1B222D] space-y-2">
+                    <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-[#8B949E]">Automated Structured Database Fields</span>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {activePrompt.fields.map((f, i) => (
-                        <div key={i} className="p-2 rounded-lg bg-slate-950 border border-slate-800 text-xs">
-                          <span className="text-[10px] text-slate-400 block">{f.label}</span>
-                          <span className="font-semibold text-slate-200 truncate block">{f.value}</span>
+                        <div key={i} className="p-2 rounded-lg bg-[#050505] border border-[#1B222D] text-xs">
+                          <span className="text-[10px] text-[#8B949E] block">{f.label}</span>
+                          <span className="font-heading font-bold text-[#F0F6FC] truncate block">{f.value}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1">
-                    <span className="flex items-center space-x-1 text-emerald-400">
+                  <div className="flex items-center justify-between text-[11px] text-[#8B949E] pt-1">
+                    <span className="flex items-center space-x-1 text-[#4CAF00]">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       <span>Zero Manual Tagging Required • Automatically Routed</span>
                     </span>
-                    <span className="text-slate-500 font-mono">DB: Live</span>
+                    <span className="text-[#8B949E] font-mono">DB: Live</span>
                   </div>
                 </div>
               </div>

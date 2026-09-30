@@ -50,12 +50,12 @@ export const AppContent: React.FC = () => {
   // Loading Screen while Supabase verifies session
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 space-y-4 font-['Plus_Jakarta_Sans',sans-serif]">
-        <div className="relative flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 shadow-2xl shadow-indigo-500/50 animate-pulse">
-          <Sparkles className="w-8 h-8 text-white animate-spin-slow" />
+      <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center p-4 space-y-4 font-sans">
+        <div className="relative flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#19B000] via-[#4CAF00] to-[#FFC61A] shadow-2xl shadow-[#19B000]/40 animate-pulse">
+          <Sparkles className="w-8 h-8 text-black animate-spin-slow" />
         </div>
         <div className="text-center space-y-1">
-          <h2 className="text-lg font-bold text-white tracking-wide">LOTAI</h2>
+          <h2 className="text-lg font-heading font-black text-white tracking-wide">LOTAI</h2>
           <p className="text-xs text-slate-400">Verifying secure session...</p>
         </div>
       </div>
@@ -70,11 +70,11 @@ export const AppContent: React.FC = () => {
   // Optional: Authenticated User Viewing Product Tour
   if (isViewingTour) {
     return (
-      <div className="relative min-h-screen bg-[#050816]">
+      <div className="relative min-h-screen bg-[#050505]">
         <div className="fixed top-4 right-4 z-50">
           <button
             onClick={() => setIsViewingTour(false)}
-            className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-xl shadow-indigo-600/30 flex items-center space-x-2 transition active:scale-95 border border-indigo-400/30"
+            className="px-4 py-2.5 rounded-xl bg-[#19B000] hover:bg-[#4CAF00] text-black text-xs font-heading font-black shadow-xl shadow-[#19B000]/30 flex items-center space-x-2 transition active:scale-95 border border-[#9ACD00]/50"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Return to LifeHub</span>
@@ -102,7 +102,7 @@ export const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-['Plus_Jakarta_Sans',sans-serif]">
+    <div className="min-h-screen bg-[#050505] text-[#F0F6FC] flex flex-col font-sans">
       {/* Top Universal Navbar */}
       <Navbar 
         isOnline={isOnline}

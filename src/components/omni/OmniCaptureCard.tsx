@@ -126,22 +126,22 @@ export const OmniCaptureCard: React.FC<OmniCaptureCardProps> = ({
   const getConfidenceBadge = () => {
     if (confidencePercent >= 90) {
       return (
-        <span className="flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold shadow-sm shadow-emerald-500/10">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+        <span className="flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-[#19B000]/15 border border-[#19B000]/30 text-[#4CAF00] text-xs font-heading font-black shadow-sm shadow-[#19B000]/10">
+          <ShieldCheck className="w-3.5 h-3.5 text-[#4CAF00]" />
           <span>{confidencePercent}% High Confidence</span>
         </span>
       );
     } else if (confidencePercent >= 70) {
       return (
-        <span className="flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-bold">
-          <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+        <span className="flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-[#FFC61A]/15 border border-[#FFC61A]/30 text-[#FFD43B] text-xs font-heading font-black">
+          <Sparkles className="w-3.5 h-3.5 text-[#FFC61A]" />
           <span>{confidencePercent}% Medium Confidence</span>
         </span>
       );
     } else {
       return (
-        <span className="flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-bold animate-pulse">
-          <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
+        <span className="flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-[#FFC61A]/20 border border-[#FFC61A]/40 text-[#FFC61A] text-xs font-heading font-black animate-pulse">
+          <AlertTriangle className="w-3.5 h-3.5 text-[#FFC61A]" />
           <span>{confidencePercent}% Low Confidence — Review</span>
         </span>
       );
@@ -152,45 +152,45 @@ export const OmniCaptureCard: React.FC<OmniCaptureCardProps> = ({
     switch (cat) {
       case 'FINANCE':
         return {
-          icon: <DollarSign className="w-4 h-4 text-emerald-400" />,
-          badge: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
-          accent: 'text-emerald-400'
+          icon: <DollarSign className="w-4 h-4 text-[#4CAF00]" />,
+          badge: 'bg-[#19B000]/15 text-[#4CAF00] border-[#19B000]/30',
+          accent: 'text-[#4CAF00]'
         };
       case 'HEALTH_FITNESS':
         return {
-          icon: <HeartPulse className="w-4 h-4 text-rose-400" />,
-          badge: 'bg-rose-500/15 text-rose-300 border-rose-500/30',
-          accent: 'text-rose-400'
+          icon: <HeartPulse className="w-4 h-4 text-[#19B000]" />,
+          badge: 'bg-[#19B000]/15 text-[#9ACD00] border-[#19B000]/30',
+          accent: 'text-[#19B000]'
         };
       case 'HABITS':
         return {
-          icon: <Repeat className="w-4 h-4 text-amber-400" />,
-          badge: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
-          accent: 'text-amber-400'
+          icon: <Repeat className="w-4 h-4 text-[#FFD43B]" />,
+          badge: 'bg-[#FFC61A]/15 text-[#FFD43B] border-[#FFC61A]/30',
+          accent: 'text-[#FFD43B]'
         };
       case 'TASKS':
         return {
-          icon: <CheckSquare className="w-4 h-4 text-blue-400" />,
-          badge: 'bg-blue-500/15 text-blue-300 border-blue-500/30',
-          accent: 'text-blue-400'
+          icon: <CheckSquare className="w-4 h-4 text-[#FFC61A]" />,
+          badge: 'bg-[#FFC61A]/15 text-[#FFC61A] border-[#FFC61A]/30',
+          accent: 'text-[#FFC61A]'
         };
       case 'GOALS':
         return {
-          icon: <Target className="w-4 h-4 text-purple-400" />,
-          badge: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
-          accent: 'text-purple-400'
+          icon: <Target className="w-4 h-4 text-[#9ACD00]" />,
+          badge: 'bg-[#9ACD00]/15 text-[#9ACD00] border-[#9ACD00]/30',
+          accent: 'text-[#9ACD00]'
         };
       case 'JOURNAL':
         return {
-          icon: <BookOpen className="w-4 h-4 text-indigo-400" />,
-          badge: 'bg-indigo-500/15 text-indigo-300 border-indigo-500/30',
-          accent: 'text-indigo-400'
+          icon: <BookOpen className="w-4 h-4 text-[#FFE066]" />,
+          badge: 'bg-[#FFC61A]/15 text-[#FFE066] border-[#FFC61A]/30',
+          accent: 'text-[#FFE066]'
         };
       case 'MIND_NOTES':
         return {
-          icon: <Lightbulb className="w-4 h-4 text-cyan-400" />,
-          badge: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
-          accent: 'text-cyan-400'
+          icon: <Lightbulb className="w-4 h-4 text-[#4CAF00]" />,
+          badge: 'bg-[#19B000]/15 text-[#4CAF00] border-[#19B000]/30',
+          accent: 'text-[#4CAF00]'
         };
     }
   };
@@ -208,16 +208,16 @@ export const OmniCaptureCard: React.FC<OmniCaptureCardProps> = ({
   ];
 
   return (
-    <div className="rounded-2xl bg-slate-900/95 border border-indigo-500/40 p-5 sm:p-6 shadow-2xl space-y-5 animate-fadeIn backdrop-blur-xl">
+    <div className="rounded-2xl bg-[#0D1117] border border-[#19B000]/40 p-5 sm:p-6 shadow-2xl space-y-5 animate-fadeIn backdrop-blur-xl">
       {/* Header Bar: Category + Destination Table + Confidence Score */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1B222D] pb-4">
         <div className="flex items-start sm:items-center space-x-3">
-          <div className="p-2.5 rounded-xl bg-slate-800/90 border border-slate-700 shadow-inner">
+          <div className="p-2.5 rounded-xl bg-[#11161D] border border-[#1B222D] shadow-inner">
             {currentTheme.icon}
           </div>
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase tracking-wide border ${currentTheme.badge}`}>
+              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-heading font-black uppercase tracking-wide border ${currentTheme.badge}`}>
                 {MASTER_CATEGORY_MAP[selectedCategory]?.label || selectedCategory}
               </span>
               

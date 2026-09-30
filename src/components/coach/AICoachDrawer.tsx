@@ -118,50 +118,50 @@ export const AICoachDrawer: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-slate-950/60 backdrop-blur-sm flex justify-end transition-opacity">
+    <div className="fixed inset-0 z-50 overflow-hidden bg-[#050505]/70 backdrop-blur-sm flex justify-end transition-opacity">
       <div 
-        className="w-full max-w-md h-full bg-slate-900 border-l border-slate-800 flex flex-col shadow-2xl transition-transform transform translate-x-0"
+        className="w-full max-w-md h-full bg-[#0D1117] border-l border-[#1B222D] flex flex-col shadow-2xl transition-transform transform translate-x-0"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-950/80">
+        <div className="flex items-center justify-between p-4 border-b border-[#1B222D] bg-[#050505]">
           <div className="flex items-center space-x-3">
-            <div className="p-2 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-600/30">
-              <Bot className="w-5 h-5" />
+            <div className="p-2 rounded-xl bg-gradient-to-tr from-[#19B000] to-[#4CAF00] text-black shadow-md shadow-[#19B000]/30">
+              <Bot className="w-5 h-5 fill-black" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h3 className="text-sm font-bold text-slate-100">LOTAI Life Coach</h3>
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                <h3 className="text-sm font-heading font-black text-white">LOTAI Life Coach</h3>
+                <span className="text-[10px] font-heading font-bold px-2 py-0.5 rounded-full bg-[#19B000]/15 text-[#4CAF00] border border-[#19B000]/30">
                   Online
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[#8B949E]">
                 {settings.geminiApiKey ? `Powered by Gemini (${settings.geminiModel})` : 'Smart Offline AI Assistant'}
               </p>
             </div>
           </div>
           <button
             onClick={() => setIsCoachDrawerOpen(false)}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition"
+            className="p-1.5 text-[#8B949E] hover:text-white rounded-lg hover:bg-[#11161D] transition"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Live Context Metric Pill Bar */}
-        <div className="grid grid-cols-3 gap-2 px-4 py-2.5 bg-slate-950/40 border-b border-slate-800/80 text-xs">
-          <div className="flex items-center space-x-1.5 text-slate-400">
-            <Activity className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Score: <strong className="text-indigo-300">{lifeScore.overall}%</strong></span>
+        <div className="grid grid-cols-3 gap-2 px-4 py-2.5 bg-[#050505]/80 border-b border-[#1B222D] text-xs">
+          <div className="flex items-center space-x-1.5 text-[#8B949E]">
+            <Activity className="w-3.5 h-3.5 text-[#4CAF00]" />
+            <span>Score: <strong className="text-[#4CAF00] font-heading font-bold">{lifeScore.overall}%</strong></span>
           </div>
-          <div className="flex items-center space-x-1.5 text-slate-400">
-            <TrendingUp className="w-3.5 h-3.5 text-amber-400" />
-            <span>Habits: <strong className="text-amber-300">{completedHabitsToday}/{habits.length}</strong></span>
+          <div className="flex items-center space-x-1.5 text-[#8B949E]">
+            <TrendingUp className="w-3.5 h-3.5 text-[#FFC61A]" />
+            <span>Habits: <strong className="text-[#FFC61A] font-heading font-bold">{completedHabitsToday}/{habits.length}</strong></span>
           </div>
-          <div className="flex items-center space-x-1.5 text-slate-400">
-            <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Spent: <strong className="text-emerald-300">{settings.currency}{monthExpenses.toFixed(0)}</strong></span>
+          <div className="flex items-center space-x-1.5 text-[#8B949E]">
+            <DollarSign className="w-3.5 h-3.5 text-[#4CAF00]" />
+            <span>Spent: <strong className="text-[#4CAF00] font-heading font-bold">{settings.currency}{monthExpenses.toFixed(0)}</strong></span>
           </div>
         </div>
 
@@ -175,18 +175,18 @@ export const AICoachDrawer: React.FC = () => {
               <div
                 className={`max-w-[88%] p-3.5 rounded-2xl text-sm leading-relaxed ${
                   msg.sender === 'user'
-                    ? 'bg-indigo-600 text-white rounded-tr-none'
-                    : 'bg-slate-800/90 text-slate-200 border border-slate-700/60 rounded-tl-none'
+                    ? 'bg-gradient-to-r from-[#19B000] to-[#4CAF00] text-black font-semibold rounded-tr-none shadow-md shadow-[#19B000]/20'
+                    : 'bg-[#11161D] text-[#F0F6FC] border border-[#1B222D] rounded-tl-none'
                 }`}
               >
                 <div className="whitespace-pre-line">{msg.text}</div>
               </div>
-              <div className="flex items-center space-x-2 mt-1 px-1 text-[10px] text-slate-500">
+              <div className="flex items-center space-x-2 mt-1 px-1 text-[10px] text-[#8B949E]">
                 <span>{msg.timestamp}</span>
                 {msg.sender === 'assistant' && (
                   <button
                     onClick={() => handleSpeak(msg.text)}
-                    className="hover:text-indigo-400 transition"
+                    className="hover:text-[#4CAF00] transition"
                     title="Read aloud"
                   >
                     <Volume2 className="w-3 h-3" />
@@ -197,9 +197,9 @@ export const AICoachDrawer: React.FC = () => {
           ))}
 
           {isLoading && (
-            <div className="flex items-center space-x-2 p-3 rounded-2xl bg-slate-800/60 border border-slate-700/50 w-fit">
-              <RefreshCw className="w-4 h-4 text-indigo-400 animate-spin" />
-              <span className="text-xs text-slate-400">LOTAI is synthesizing insights...</span>
+            <div className="flex items-center space-x-2 p-3 rounded-2xl bg-[#11161D] border border-[#1B222D] w-fit">
+              <RefreshCw className="w-4 h-4 text-[#4CAF00] animate-spin" />
+              <span className="text-xs text-[#8B949E]">LOTAI is synthesizing insights...</span>
             </div>
           )}
 
@@ -207,9 +207,9 @@ export const AICoachDrawer: React.FC = () => {
         </div>
 
         {/* Quick Prompts Carousel */}
-        <div className="px-4 py-2 border-t border-slate-800 bg-slate-950/60">
-          <p className="text-[11px] text-slate-500 font-semibold mb-1.5 flex items-center space-x-1">
-            <Sparkles className="w-3 h-3 text-indigo-400" />
+        <div className="px-4 py-2 border-t border-[#1B222D] bg-[#050505]">
+          <p className="text-[11px] text-[#8B949E] font-heading font-bold mb-1.5 flex items-center space-x-1">
+            <Sparkles className="w-3 h-3 text-[#FFC61A]" />
             <span>Suggested Coaching Questions:</span>
           </p>
           <div className="flex space-x-2 overflow-x-auto pb-1 no-scrollbar">
@@ -222,7 +222,7 @@ export const AICoachDrawer: React.FC = () => {
               <button
                 key={i}
                 onClick={() => handleSendMessage(prompt)}
-                className="whitespace-nowrap text-xs px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/80 transition"
+                className="whitespace-nowrap text-xs px-2.5 py-1 rounded-full bg-[#11161D] hover:bg-[#1B222D] text-[#C9D1D9] hover:text-white border border-[#1B222D] transition"
               >
                 {prompt}
               </button>
@@ -231,7 +231,7 @@ export const AICoachDrawer: React.FC = () => {
         </div>
 
         {/* Input Area */}
-        <div className="p-4 border-t border-slate-800 bg-slate-950/90">
+        <div className="p-4 border-t border-[#1B222D] bg-[#050505]">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -244,14 +244,14 @@ export const AICoachDrawer: React.FC = () => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Ask coach for advice, habit ideas, or analysis..."
-              className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              className="flex-1 bg-[#11161D] border border-[#1B222D] rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-[#8B949E] focus:outline-none focus:border-[#19B000]"
             />
             <button
               type="submit"
               disabled={!inputValue.trim() || isLoading}
-              className="p-2.5 rounded-xl bg-indigo-600 text-white disabled:opacity-40 hover:bg-indigo-500 transition shadow-md shadow-indigo-600/30"
+              className="p-2.5 rounded-xl bg-gradient-to-r from-[#19B000] to-[#4CAF00] text-black disabled:opacity-40 hover:brightness-110 transition shadow-md shadow-[#19B000]/30"
             >
-              <Send className="w-4 h-4" />
+              <Send className="w-4 h-4 fill-black" />
             </button>
           </form>
         </div>

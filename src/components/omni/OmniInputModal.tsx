@@ -155,13 +155,13 @@ export const OmniInputModal: React.FC = () => {
 
   const getModuleIcon = (mod?: LifeModule) => {
     switch (mod) {
-      case 'finance': return <DollarSign className="w-4 h-4 text-emerald-400" />;
-      case 'health': return <HeartPulse className="w-4 h-4 text-rose-400" />;
-      case 'tasks': return <CheckSquare className="w-4 h-4 text-blue-400" />;
-      case 'habits': return <Repeat className="w-4 h-4 text-amber-400" />;
-      case 'goals': return <Target className="w-4 h-4 text-purple-400" />;
-      case 'journal': return <BookOpen className="w-4 h-4 text-indigo-400" />;
-      default: return <Bot className="w-4 h-4 text-cyan-400" />;
+      case 'finance': return <DollarSign className="w-4 h-4 text-[#4CAF00]" />;
+      case 'health': return <HeartPulse className="w-4 h-4 text-[#19B000]" />;
+      case 'tasks': return <CheckSquare className="w-4 h-4 text-[#FFC61A]" />;
+      case 'habits': return <Repeat className="w-4 h-4 text-[#FFD43B]" />;
+      case 'goals': return <Target className="w-4 h-4 text-[#9ACD00]" />;
+      case 'journal': return <BookOpen className="w-4 h-4 text-[#FFE066]" />;
+      default: return <Bot className="w-4 h-4 text-[#4CAF00]" />;
     }
   };
 
@@ -176,24 +176,24 @@ export const OmniInputModal: React.FC = () => {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4 bg-slate-950/80 backdrop-blur-md transition-all overflow-y-auto pb-10">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4 bg-[#050505]/85 backdrop-blur-md transition-all overflow-y-auto pb-10">
       <div 
-        className="w-full max-w-2xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden transition-all transform scale-100"
+        className="w-full max-w-2xl bg-[#0D1117] border border-[#1B222D] rounded-2xl shadow-2xl overflow-hidden transition-all transform scale-100"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-800 bg-slate-900/90">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#1B222D] bg-[#050505]">
           <div className="flex items-center space-x-2">
-            <div className="p-1 rounded-lg bg-indigo-500/20 text-indigo-400">
+            <div className="p-1 rounded-lg bg-[#19B000]/15 text-[#4CAF00] border border-[#19B000]/30">
               <Sparkles className="w-4 h-4" />
             </div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+            <span className="text-xs font-heading font-black uppercase tracking-wider text-white">
               LOTAI Omni Capture AI Engine
             </span>
           </div>
           <button
             onClick={() => setIsOmniModalOpen(false)}
-            className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition"
+            className="p-1 text-[#8B949E] hover:text-white rounded-lg hover:bg-[#11161D] transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -208,7 +208,7 @@ export const OmniInputModal: React.FC = () => {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Tell LOTAI anything... (e.g. 'Spent ₹500 on lunch', 'My weight is 54kg')"
-              className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-4 py-3.5 pr-24 text-base text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+              className="w-full bg-[#11161D] border border-[#1B222D] rounded-xl px-4 py-3.5 pr-24 text-base text-white placeholder-[#8B949E] focus:outline-none focus:border-[#19B000] focus:ring-1 focus:ring-[#19B000]"
             />
             
             <div className="absolute right-2.5 flex items-center space-x-1.5">
@@ -218,8 +218,8 @@ export const OmniInputModal: React.FC = () => {
                 onClick={toggleVoiceRecording}
                 className={`p-2 rounded-lg transition-all ${
                   isListening
-                    ? 'bg-rose-500 text-white animate-pulse shadow-lg shadow-rose-500/50'
-                    : 'text-slate-400 hover:text-indigo-400 hover:bg-slate-800'
+                    ? 'bg-[#FFC61A] text-black animate-pulse shadow-lg shadow-[#FFC61A]/50'
+                    : 'text-[#8B949E] hover:text-[#4CAF00] hover:bg-[#11161D]'
                 }`}
                 title={isListening ? 'Stop listening' : 'Start voice input'}
               >
@@ -230,7 +230,7 @@ export const OmniInputModal: React.FC = () => {
               <button
                 type="submit"
                 disabled={!inputText.trim() || isAnalyzing}
-                className="p-2 rounded-lg bg-indigo-600 text-white disabled:opacity-30 hover:bg-indigo-500 transition shadow-sm"
+                className="p-2 rounded-lg bg-gradient-to-r from-[#19B000] to-[#4CAF00] text-black disabled:opacity-30 hover:brightness-110 transition shadow-sm font-heading font-black"
                 title="Execute Command"
               >
                 {isAnalyzing ? <Loader2 className="w-5 h-5 animate-spin" /> : <CornerDownLeft className="w-5 h-5" />}
@@ -240,51 +240,51 @@ export const OmniInputModal: React.FC = () => {
 
           {/* Voice Listening Wave Indicator */}
           {isListening && (
-            <div className="flex items-center justify-center space-x-2 py-2 px-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-sm">
+            <div className="flex items-center justify-center space-x-2 py-2 px-4 rounded-xl bg-[#FFC61A]/10 border border-[#FFC61A]/30 text-[#FFD43B] text-sm font-heading font-bold">
               <span className="flex h-2.5 w-2.5 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFC61A] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FFC61A]"></span>
               </span>
-              <span className="font-medium">Listening to your voice... Speak naturally</span>
+              <span>Listening to your voice... Speak naturally</span>
               <div className="flex space-x-1 items-center h-4 ml-2">
-                <span className="w-1 h-3 bg-rose-400 animate-pulse"></span>
-                <span className="w-1 h-5 bg-rose-400 animate-pulse delay-75"></span>
-                <span className="w-1 h-2 bg-rose-400 animate-pulse delay-150"></span>
-                <span className="w-1 h-4 bg-rose-400 animate-pulse"></span>
+                <span className="w-1 h-3 bg-[#FFC61A] animate-pulse"></span>
+                <span className="w-1 h-5 bg-[#FFC61A] animate-pulse delay-75"></span>
+                <span className="w-1 h-2 bg-[#FFC61A] animate-pulse delay-150"></span>
+                <span className="w-1 h-4 bg-[#FFC61A] animate-pulse"></span>
               </div>
             </div>
           )}
 
           {speechError && (
-            <p className="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-lg">
+            <p className="text-xs text-[#FFC61A] bg-[#FFC61A]/10 border border-[#FFC61A]/20 px-3 py-1.5 rounded-lg">
               {speechError}
             </p>
           )}
 
           {/* Real-time AI Intent Pill & Preview while typing */}
           {parsedPreview && !activeCapture && (
-            <div className="p-3 rounded-xl bg-slate-950/80 border border-indigo-500/30 flex items-center justify-between">
+            <div className="p-3 rounded-xl bg-[#11161D] border border-[#19B000]/40 flex items-center justify-between">
               <div className="flex items-center space-x-2.5">
-                <div className="p-1.5 rounded-lg bg-slate-800 border border-slate-700">
+                <div className="p-1.5 rounded-lg bg-[#0D1117] border border-[#1B222D]">
                   {getModuleIcon(parsedPreview.module)}
                 </div>
                 <div>
                   <div className="flex items-center space-x-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">
+                    <span className="text-xs font-heading font-black uppercase tracking-wider text-[#4CAF00]">
                       AI Intent Detected:
                     </span>
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                    <span className="text-xs font-heading font-bold px-2 py-0.5 rounded-full bg-[#19B000]/15 text-[#4CAF00] border border-[#19B000]/30">
                       {parsedPreview.masterCategory} ➔ {parsedPreview.destinationTable}
                     </span>
-                    <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded border ${
+                    <span className={`text-[10px] uppercase font-heading font-black px-2 py-0.5 rounded border ${
                       parsedPreview.confidenceTier === 'high'
-                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
-                        : 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                        ? 'bg-[#19B000]/20 text-[#4CAF00] border-[#19B000]/30'
+                        : 'bg-[#FFC61A]/20 text-[#FFD43B] border-[#FFC61A]/30'
                     }`}>
                       {Math.round(parsedPreview.confidence * 100)}%
                     </span>
                   </div>
-                  <p className="text-sm font-medium text-slate-200 mt-0.5">
+                  <p className="text-sm font-medium text-[#F0F6FC] mt-0.5">
                     {parsedPreview.summary}
                   </p>
                 </div>
@@ -292,7 +292,7 @@ export const OmniInputModal: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleSubmit()}
-                className="flex items-center space-x-1 text-xs font-semibold px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition shrink-0"
+                className="flex items-center space-x-1 text-xs font-heading font-black px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#19B000] to-[#4CAF00] text-black hover:brightness-110 transition shrink-0"
               >
                 <span>Capture</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -314,17 +314,17 @@ export const OmniInputModal: React.FC = () => {
 
           {/* Last Executed Notification */}
           {lastExecuted && !activeCapture && (
-            <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between text-xs text-emerald-300 animate-fadeIn">
+            <div className="p-3.5 rounded-xl bg-[#19B000]/10 border border-[#19B000]/30 flex items-center justify-between text-xs text-[#4CAF00] animate-fadeIn">
               <div className="flex items-center space-x-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>{lastExecuted.message}</span>
+                <CheckCircle2 className="w-4 h-4 text-[#4CAF00] shrink-0" />
+                <span className="font-semibold text-white">{lastExecuted.message}</span>
               </div>
               <button
                 onClick={() => {
                   setCurrentModule(lastExecuted.module);
                   setIsOmniModalOpen(false);
                 }}
-                className="flex items-center space-x-1 font-semibold text-emerald-400 hover:text-emerald-300 ml-2 shrink-0"
+                className="flex items-center space-x-1 font-heading font-bold text-[#FFC61A] hover:text-[#FFD43B] ml-2 shrink-0"
               >
                 <span>Go to {lastExecuted.module}</span>
                 <ArrowRight className="w-3 h-3" />
@@ -334,7 +334,7 @@ export const OmniInputModal: React.FC = () => {
 
           {/* Quick Preset Ideas */}
           <div className="pt-2">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-2">
+            <p className="text-[11px] font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-2">
               Try quick commands:
             </p>
             <div className="flex flex-wrap gap-2">
@@ -343,7 +343,7 @@ export const OmniInputModal: React.FC = () => {
                   key={idx}
                   type="button"
                   onClick={() => handlePresetClick(preset)}
-                  className="text-xs px-2.5 py-1.5 rounded-lg bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-indigo-300 hover:border-indigo-500/30 border border-slate-700/60 transition"
+                  className="text-xs px-2.5 py-1.5 rounded-lg bg-[#11161D] text-[#C9D1D9] hover:bg-[#1B222D] hover:text-[#4CAF00] hover:border-[#19B000]/40 border border-[#1B222D] transition"
                 >
                   {preset}
                 </button>
@@ -353,9 +353,9 @@ export const OmniInputModal: React.FC = () => {
         </form>
 
         {/* Footer info */}
-        <div className="px-5 py-3 border-t border-slate-800/80 bg-slate-950/40 flex items-center justify-between text-[11px] text-slate-500">
-          <span>Press <kbd className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">Enter</kbd> to submit</span>
-          <span>Press <kbd className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">Esc</kbd> to close</span>
+        <div className="px-5 py-3 border-t border-[#1B222D] bg-[#050505] flex items-center justify-between text-[11px] text-[#8B949E]">
+          <span>Press <kbd className="px-1.5 py-0.5 rounded bg-[#11161D] text-[#C9D1D9] border border-[#1B222D]">Enter</kbd> to submit</span>
+          <span>Press <kbd className="px-1.5 py-0.5 rounded bg-[#11161D] text-[#C9D1D9] border border-[#1B222D]">Esc</kbd> to close</span>
         </div>
       </div>
     </div>

@@ -129,7 +129,7 @@ export const INITIAL_HABITS: Habit[] = [
     targetCount: 1,
     currentStreak: 12,
     bestStreak: 24,
-    color: '#6366f1',
+    color: '#19B000',
     createdAt: getTodayString(-30),
     history: {
       [getTodayString(-4)]: true,
@@ -148,7 +148,7 @@ export const INITIAL_HABITS: Habit[] = [
     targetCount: 1,
     currentStreak: 8,
     bestStreak: 15,
-    color: '#06b6d4',
+    color: '#4CAF00',
     createdAt: getTodayString(-20),
     history: {
       [getTodayString(-3)]: true,
@@ -166,7 +166,7 @@ export const INITIAL_HABITS: Habit[] = [
     targetCount: 1,
     currentStreak: 5,
     bestStreak: 18,
-    color: '#10b981',
+    color: '#FFC61A',
     createdAt: getTodayString(-25),
     history: {
       [getTodayString(-2)]: true,
@@ -183,7 +183,7 @@ export const INITIAL_HABITS: Habit[] = [
     targetCount: 1,
     currentStreak: 6,
     bestStreak: 14,
-    color: '#8b5cf6',
+    color: '#FFD43B',
     createdAt: getTodayString(-14),
     history: {
       [getTodayString(-3)]: true,

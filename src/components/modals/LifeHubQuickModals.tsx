@@ -477,13 +477,13 @@ export const LifeHubQuickModals: React.FC = () => {
   if (!quickModalType) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto bg-[#050505]/85 backdrop-blur-md animate-fadeIn">
       {/* Click outside to close */}
       <div className="fixed inset-0" onClick={closeQuickModal} />
 
       {/* Modal Container */}
       <div 
-        className="relative w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden z-10 my-auto text-slate-100 transition-all transform animate-scaleUp"
+        className="relative w-full max-w-lg bg-[#0D1117] border border-[#1B222D] rounded-3xl shadow-2xl overflow-hidden z-10 my-auto text-[#F0F6FC] transition-all transform animate-scaleUp"
         onClick={(e) => e.stopPropagation()}
       >
         {/* ==================================================================== */}
@@ -491,19 +491,19 @@ export const LifeHubQuickModals: React.FC = () => {
         {/* ==================================================================== */}
         {quickModalType === 'goal' && (
           <div className="p-5 sm:p-6 space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1B222D]">
               <div className="flex items-center space-x-3">
-                <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                <div className="p-2 rounded-xl bg-[#19B000]/15 text-[#4CAF00] border border-[#19B000]/30">
                   <Target className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">Create New Goal</h3>
-                  <p className="text-xs text-slate-400">Define an objective and target outcome</p>
+                  <h3 className="text-base sm:text-lg font-heading font-black text-white">Create New Goal</h3>
+                  <p className="text-xs text-[#8B949E]">Define an objective and target outcome</p>
                 </div>
               </div>
               <button 
                 onClick={closeQuickModal}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                className="p-1.5 rounded-lg text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -511,7 +511,7 @@ export const LifeHubQuickModals: React.FC = () => {
 
             <form onSubmit={handleCreateGoal} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                   Goal Title *
                 </label>
                 <input
@@ -520,20 +520,20 @@ export const LifeHubQuickModals: React.FC = () => {
                   placeholder="e.g. Build SaaS MVP, Reach ₹10L ARR, Run Half Marathon"
                   value={goalTitle}
                   onChange={(e) => setGoalTitle(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#11161D] border border-[#1B222D] text-white placeholder-[#8B949E] text-sm focus:outline-none focus:border-[#19B000] focus:ring-1 focus:ring-[#19B000]"
                   autoFocus
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                     Category
                   </label>
                   <select
                     value={goalCategory}
                     onChange={(e) => setGoalCategory(e.target.value as GoalCategory)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-sm focus:outline-none focus:border-[#19B000]"
                   >
                     <option value="Career">Career & Startup</option>
                     <option value="Health">Health & Fitness</option>
@@ -545,20 +545,20 @@ export const LifeHubQuickModals: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                     Target Date
                   </label>
                   <input
                     type="date"
                     value={goalDate}
                     onChange={(e) => setGoalDate(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-sm focus:outline-none focus:border-[#19B000]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                   Target Metric (Optional)
                 </label>
                 <input
@@ -566,12 +566,12 @@ export const LifeHubQuickModals: React.FC = () => {
                   placeholder="e.g. ₹10,00,000 revenue or 15% body fat"
                   value={goalMetric}
                   onChange={(e) => setGoalMetric(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#11161D] border border-[#1B222D] text-white placeholder-[#8B949E] text-sm focus:outline-none focus:border-[#19B000]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                   Milestones (1 per line)
                 </label>
                 <textarea
@@ -579,7 +579,7 @@ export const LifeHubQuickModals: React.FC = () => {
                   placeholder="Draft project roadmap&#10;Ship v1 to beta users&#10;Hit first 100 paid subscriptions"
                   value={goalMilestones}
                   onChange={(e) => setGoalMilestones(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-3.5 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white placeholder-[#8B949E] text-sm focus:outline-none focus:border-[#19B000]"
                 />
               </div>
 
@@ -587,13 +587,13 @@ export const LifeHubQuickModals: React.FC = () => {
                 <button
                   type="button"
                   onClick={closeQuickModal}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-lg shadow-purple-600/30 transition flex items-center space-x-1.5"
+                  className="px-5 py-2.5 rounded-xl text-xs font-heading font-black text-black bg-gradient-to-r from-[#19B000] to-[#4CAF00] hover:brightness-110 shadow-lg shadow-[#19B000]/20 transition flex items-center space-x-1.5"
                 >
                   <Target className="w-4 h-4" />
                   <span>Save Goal</span>
@@ -608,19 +608,19 @@ export const LifeHubQuickModals: React.FC = () => {
         {/* ==================================================================== */}
         {quickModalType === 'task' && (
           <div className="p-5 sm:p-6 space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1B222D]">
               <div className="flex items-center space-x-3">
-                <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                <div className="p-2 rounded-xl bg-[#FFC61A]/15 text-[#FFC61A] border border-[#FFC61A]/30">
                   <CheckSquare className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">Add Focus Task</h3>
-                  <p className="text-xs text-slate-400">Queue an action item for immediate execution</p>
+                  <h3 className="text-base sm:text-lg font-heading font-black text-white">Add Focus Task</h3>
+                  <p className="text-xs text-[#8B949E]">Queue an action item for immediate execution</p>
                 </div>
               </div>
               <button 
                 onClick={closeQuickModal}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                className="p-1.5 rounded-lg text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -628,7 +628,7 @@ export const LifeHubQuickModals: React.FC = () => {
 
             <form onSubmit={handleCreateTask} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                   Task Title *
                 </label>
                 <input
@@ -637,20 +637,20 @@ export const LifeHubQuickModals: React.FC = () => {
                   placeholder="e.g. Call 10 enterprise prospects, Ship landing page update"
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#11161D] border border-[#1B222D] text-white placeholder-[#8B949E] text-sm focus:outline-none focus:border-[#FFC61A] focus:ring-1 focus:ring-[#FFC61A]"
                   autoFocus
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                     Priority
                   </label>
                   <select
                     value={taskPriority}
                     onChange={(e) => setTaskPriority(e.target.value as TaskPriority)}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs focus:outline-none focus:border-[#FFC61A]"
                   >
                     <option value="urgent">🔥 Urgent</option>
                     <option value="high">⚡ High</option>
@@ -660,13 +660,13 @@ export const LifeHubQuickModals: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                     Category
                   </label>
                   <select
                     value={taskCategory}
                     onChange={(e) => setTaskCategory(e.target.value as GoalCategory)}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs focus:outline-none focus:border-[#FFC61A]"
                   >
                     <option value="Career">Career</option>
                     <option value="Personal">Personal</option>
@@ -677,14 +677,14 @@ export const LifeHubQuickModals: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                     Due Date
                   </label>
                   <input
                     type="date"
                     value={taskDueDate}
                     onChange={(e) => setTaskDueDate(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs focus:outline-none focus:border-[#FFC61A]"
                   />
                 </div>
               </div>
@@ -693,13 +693,13 @@ export const LifeHubQuickModals: React.FC = () => {
                 <button
                   type="button"
                   onClick={closeQuickModal}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30 transition flex items-center space-x-1.5"
+                  className="px-5 py-2.5 rounded-xl text-xs font-heading font-black text-black bg-gradient-to-r from-[#FFC61A] to-[#FFD43B] hover:brightness-110 shadow-lg shadow-[#FFC61A]/20 transition flex items-center space-x-1.5"
                 >
                   <CheckSquare className="w-4 h-4" />
                   <span>Add Task</span>
@@ -714,19 +714,19 @@ export const LifeHubQuickModals: React.FC = () => {
         {/* ==================================================================== */}
         {quickModalType === 'habit' && (
           <div className="p-5 sm:p-6 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1B222D]">
               <div className="flex items-center space-x-3">
-                <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                <div className="p-2 rounded-xl bg-[#FFC61A]/15 text-[#FFD43B] border border-[#FFC61A]/30">
                   <Flame className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">Daily Habit Check-in</h3>
-                  <p className="text-xs text-slate-400">Review standards or add a routine</p>
+                  <h3 className="text-base sm:text-lg font-heading font-black text-white">Daily Habit Check-in</h3>
+                  <p className="text-xs text-[#8B949E]">Review standards or add a routine</p>
                 </div>
               </div>
               <button 
                 onClick={closeQuickModal}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                className="p-1.5 rounded-lg text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -735,7 +735,7 @@ export const LifeHubQuickModals: React.FC = () => {
             {/* Today's Habits Instant Checkoff List */}
             <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
               {habits.length === 0 ? (
-                <div className="p-4 text-center text-xs text-slate-500 bg-slate-800/40 rounded-xl">
+                <div className="p-4 text-center text-xs text-[#8B949E] bg-[#11161D] rounded-xl border border-[#1B222D]">
                   No habits tracked yet. Create your first routine below!
                 </div>
               ) : (
@@ -747,21 +747,21 @@ export const LifeHubQuickModals: React.FC = () => {
                       onClick={() => toggleHabitToday(h.id)}
                       className={`flex items-center justify-between p-2.5 rounded-xl border transition cursor-pointer select-none ${
                         isDone 
-                          ? 'bg-slate-950/60 border-amber-500/30 text-slate-300' 
-                          : 'bg-slate-800/60 border-slate-700/60 hover:border-slate-600 text-slate-200'
+                          ? 'bg-[#050505] border-[#FFC61A]/30 text-[#8B949E]' 
+                          : 'bg-[#11161D] border-[#1B222D] hover:border-[#19B000]/50 text-[#F0F6FC]'
                       }`}
                     >
                       <div className="flex items-center space-x-2.5 truncate">
                         {isDone ? (
-                          <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-[#FFD43B] shrink-0" />
                         ) : (
-                          <Circle className="w-4 h-4 text-slate-500 shrink-0" />
+                          <Circle className="w-4 h-4 text-[#8B949E] shrink-0" />
                         )}
-                        <span className={`text-xs font-semibold truncate ${isDone ? 'line-through text-slate-400' : ''}`}>
+                        <span className={`text-xs font-semibold truncate ${isDone ? 'line-through text-[#8B949E]' : ''}`}>
                           {h.title}
                         </span>
                       </div>
-                      <div className="flex items-center space-x-1 text-[11px] font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md">
+                      <div className="flex items-center space-x-1 text-[11px] font-heading font-bold text-[#FFD43B] bg-[#FFC61A]/10 px-2 py-0.5 rounded-md">
                         <Flame className="w-3 h-3" />
                         <span>{h.currentStreak}d</span>
                       </div>
@@ -773,21 +773,21 @@ export const LifeHubQuickModals: React.FC = () => {
 
             {/* Inline Add Habit Section */}
             {showAddHabitForm ? (
-              <form onSubmit={handleCreateHabit} className="pt-3 border-t border-slate-800 space-y-3">
+              <form onSubmit={handleCreateHabit} className="pt-3 border-t border-[#1B222D] space-y-3">
                 <input
                   type="text"
                   required
                   placeholder="New Habit (e.g. 20m Morning Cardio, Read 10 Pages)"
                   value={newHabitTitle}
                   onChange={(e) => setNewHabitTitle(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:outline-none focus:border-amber-500"
+                  className="w-full px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs focus:outline-none focus:border-[#FFC61A]"
                   autoFocus
                 />
                 <div className="grid grid-cols-2 gap-2">
                   <select
                     value={newHabitCategory}
                     onChange={(e) => setNewHabitCategory(e.target.value as GoalCategory)}
-                    className="w-full px-2.5 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs"
+                    className="w-full px-2.5 py-1.5 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs"
                   >
                     <option value="Health">Health</option>
                     <option value="Career">Career</option>
@@ -797,7 +797,7 @@ export const LifeHubQuickModals: React.FC = () => {
                   <select
                     value={newHabitTime}
                     onChange={(e) => setNewHabitTime(e.target.value as any)}
-                    className="w-full px-2.5 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs"
+                    className="w-full px-2.5 py-1.5 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs"
                   >
                     <option value="morning">Morning</option>
                     <option value="afternoon">Afternoon</option>
@@ -809,13 +809,13 @@ export const LifeHubQuickModals: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setShowAddHabitForm(false)}
-                    className="px-3 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white"
+                    className="px-3 py-1.5 rounded-lg text-xs text-[#8B949E] hover:text-white"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-1.5 rounded-lg text-xs font-bold text-white bg-amber-600 hover:bg-amber-500"
+                    className="px-4 py-1.5 rounded-lg text-xs font-heading font-black text-black bg-[#FFC61A] hover:bg-[#FFD43B]"
                   >
                     Save Routine
                   </button>
@@ -825,7 +825,7 @@ export const LifeHubQuickModals: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowAddHabitForm(true)}
-                className="w-full py-2.5 rounded-xl border border-dashed border-slate-700 hover:border-amber-500/50 text-xs font-semibold text-slate-300 hover:text-amber-400 transition flex items-center justify-center space-x-1.5"
+                className="w-full py-2.5 rounded-xl border border-dashed border-[#1B222D] hover:border-[#FFC61A]/50 text-xs font-heading font-bold text-[#8B949E] hover:text-[#FFC61A] transition flex items-center justify-center space-x-1.5"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Create New Habit Routine</span>
@@ -836,7 +836,7 @@ export const LifeHubQuickModals: React.FC = () => {
               <button
                 type="button"
                 onClick={closeQuickModal}
-                className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-slate-800 hover:bg-slate-700 transition"
+                className="px-4 py-2 rounded-xl text-xs font-heading font-bold text-white bg-[#11161D] hover:bg-[#1B222D] border border-[#1B222D] transition"
               >
                 Done
               </button>
@@ -849,42 +849,42 @@ export const LifeHubQuickModals: React.FC = () => {
         {/* ==================================================================== */}
         {(quickModalType === 'expense' || quickModalType === 'income') && (
           <div className="p-5 sm:p-6 space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1B222D]">
               <div className="flex items-center space-x-3">
                 <div className={`p-2 rounded-xl border ${
                   financeType === 'expense' 
-                    ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' 
-                    : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                    ? 'bg-[#FFC61A]/15 text-[#FFC61A] border-[#FFC61A]/30' 
+                    : 'bg-[#19B000]/15 text-[#4CAF00] border-[#19B000]/30'
                 }`}>
                   <DollarSign className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">
+                  <h3 className="text-base sm:text-lg font-heading font-black text-white">
                     {financeType === 'expense' ? 'Log Expense' : 'Record Income'}
                   </h3>
-                  <p className="text-xs text-slate-400">Track cash flow and update budget in real time</p>
+                  <p className="text-xs text-[#8B949E]">Track cash flow and update budget in real time</p>
                 </div>
               </div>
               <button 
                 onClick={closeQuickModal}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                className="p-1.5 rounded-lg text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Type Toggle Pills */}
-            <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-slate-800/60 border border-slate-700/60">
+            <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-[#11161D] border border-[#1B222D]">
               <button
                 type="button"
                 onClick={() => {
                   setFinanceType('expense');
                   setFinanceCategory('Food & Dining');
                 }}
-                className={`py-1.5 rounded-lg text-xs font-bold transition ${
+                className={`py-1.5 rounded-lg text-xs font-heading font-bold transition ${
                   financeType === 'expense' 
-                    ? 'bg-rose-600 text-white shadow-md' 
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-[#FFC61A] text-black shadow-md' 
+                    : 'text-[#8B949E] hover:text-white'
                 }`}
               >
                 Expense (Outflow)
@@ -895,10 +895,10 @@ export const LifeHubQuickModals: React.FC = () => {
                   setFinanceType('income');
                   setFinanceCategory('Salary');
                 }}
-                className={`py-1.5 rounded-lg text-xs font-bold transition ${
+                className={`py-1.5 rounded-lg text-xs font-heading font-bold transition ${
                   financeType === 'income' 
-                    ? 'bg-emerald-600 text-white shadow-md' 
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-[#19B000] text-black shadow-md' 
+                    : 'text-[#8B949E] hover:text-white'
                 }`}
               >
                 Income (Inflow)
@@ -907,11 +907,11 @@ export const LifeHubQuickModals: React.FC = () => {
 
             <form onSubmit={handleCreateFinance} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                   Amount ({settings.currency}) *
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3.5 top-2.5 text-base font-bold text-slate-400">
+                  <span className="absolute left-3.5 top-2.5 text-base font-bold text-[#8B949E]">
                     {settings.currency}
                   </span>
                   <input
@@ -921,7 +921,7 @@ export const LifeHubQuickModals: React.FC = () => {
                     placeholder="0.00"
                     value={financeAmount}
                     onChange={(e) => setFinanceAmount(e.target.value)}
-                    className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-base font-bold focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                    className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-[#11161D] border border-[#1B222D] text-white placeholder-[#8B949E] text-base font-heading font-black focus:outline-none focus:border-[#19B000] focus:ring-1 focus:ring-[#19B000]"
                     autoFocus
                   />
                 </div>
@@ -929,13 +929,13 @@ export const LifeHubQuickModals: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                     Category
                   </label>
                   <select
                     value={financeCategory}
                     onChange={(e) => setFinanceCategory(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs focus:outline-none focus:border-[#19B000]"
                   >
                     {(financeType === 'expense' ? expenseCategories : incomeCategories).map((c) => (
                       <option key={c} value={c}>{c}</option>
@@ -944,20 +944,20 @@ export const LifeHubQuickModals: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                     Date
                   </label>
                   <input
                     type="date"
                     value={financeDate}
                     onChange={(e) => setFinanceDate(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs focus:outline-none focus:border-[#19B000]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                   Description / Note
                 </label>
                 <input
@@ -965,7 +965,7 @@ export const LifeHubQuickModals: React.FC = () => {
                   placeholder="e.g. Grocery store, Client milestone payment, Cloud server fee"
                   value={financeDesc}
                   onChange={(e) => setFinanceDesc(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3.5 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white placeholder-[#8B949E] text-xs focus:outline-none focus:border-[#19B000]"
                 />
               </div>
 
@@ -973,16 +973,16 @@ export const LifeHubQuickModals: React.FC = () => {
                 <button
                   type="button"
                   onClick={closeQuickModal}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className={`px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-lg transition flex items-center space-x-1.5 ${
+                  className={`px-5 py-2.5 rounded-xl text-xs font-heading font-black text-black shadow-lg transition flex items-center space-x-1.5 ${
                     financeType === 'expense'
-                      ? 'bg-rose-600 hover:bg-rose-500 shadow-rose-600/30'
-                      : 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-600/30'
+                      ? 'bg-gradient-to-r from-[#FFC61A] to-[#FFD43B] hover:brightness-110 shadow-[#FFC61A]/20'
+                      : 'bg-gradient-to-r from-[#19B000] to-[#4CAF00] hover:brightness-110 shadow-[#19B000]/20'
                   }`}
                 >
                   <DollarSign className="w-4 h-4" />
@@ -998,31 +998,31 @@ export const LifeHubQuickModals: React.FC = () => {
         {/* ==================================================================== */}
         {quickModalType === 'health' && (
           <div className="p-5 sm:p-6 space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1B222D]">
               <div className="flex items-center space-x-3">
-                <div className="p-2 rounded-xl bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                <div className="p-2 rounded-xl bg-[#19B000]/15 text-[#4CAF00] border border-[#19B000]/30">
                   <Activity className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">Log Health & Vitals</h3>
-                  <p className="text-xs text-slate-400">Quick track water, sleep, workout or weight</p>
+                  <h3 className="text-base sm:text-lg font-heading font-black text-white">Log Health & Vitals</h3>
+                  <p className="text-xs text-[#8B949E]">Quick track water, sleep, workout or weight</p>
                 </div>
               </div>
               <button 
                 onClick={closeQuickModal}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                className="p-1.5 rounded-lg text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Tab navigation */}
-            <div className="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-800/60 border border-slate-700/60 text-xs">
+            <div className="grid grid-cols-4 gap-1 p-1 rounded-xl bg-[#11161D] border border-[#1B222D] text-xs">
               <button
                 type="button"
                 onClick={() => setHealthTab('water')}
-                className={`py-1.5 rounded-lg font-bold transition flex items-center justify-center space-x-1 ${
-                  healthTab === 'water' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
+                className={`py-1.5 rounded-lg font-heading font-bold transition flex items-center justify-center space-x-1 ${
+                  healthTab === 'water' ? 'bg-[#19B000] text-black shadow-md' : 'text-[#8B949E] hover:text-white'
                 }`}
               >
                 <Droplet className="w-3.5 h-3.5" />
@@ -1031,8 +1031,8 @@ export const LifeHubQuickModals: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setHealthTab('sleep')}
-                className={`py-1.5 rounded-lg font-bold transition flex items-center justify-center space-x-1 ${
-                  healthTab === 'sleep' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
+                className={`py-1.5 rounded-lg font-heading font-bold transition flex items-center justify-center space-x-1 ${
+                  healthTab === 'sleep' ? 'bg-[#19B000] text-black shadow-md' : 'text-[#8B949E] hover:text-white'
                 }`}
               >
                 <Moon className="w-3.5 h-3.5" />
@@ -1041,8 +1041,8 @@ export const LifeHubQuickModals: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setHealthTab('workout')}
-                className={`py-1.5 rounded-lg font-bold transition flex items-center justify-center space-x-1 ${
-                  healthTab === 'workout' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
+                className={`py-1.5 rounded-lg font-heading font-bold transition flex items-center justify-center space-x-1 ${
+                  healthTab === 'workout' ? 'bg-[#19B000] text-black shadow-md' : 'text-[#8B949E] hover:text-white'
                 }`}
               >
                 <Flame className="w-3.5 h-3.5" />
@@ -1051,8 +1051,8 @@ export const LifeHubQuickModals: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setHealthTab('weight')}
-                className={`py-1.5 rounded-lg font-bold transition flex items-center justify-center space-x-1 ${
-                  healthTab === 'weight' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
+                className={`py-1.5 rounded-lg font-heading font-bold transition flex items-center justify-center space-x-1 ${
+                  healthTab === 'weight' ? 'bg-[#19B000] text-black shadow-md' : 'text-[#8B949E] hover:text-white'
                 }`}
               >
                 <Activity className="w-3.5 h-3.5" />
@@ -1067,29 +1067,29 @@ export const LifeHubQuickModals: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleLogWater(250)}
-                    className="p-3.5 rounded-xl bg-slate-800 hover:bg-indigo-600/20 border border-slate-700 hover:border-indigo-500/50 text-center transition group active:scale-95"
+                    className="p-3.5 rounded-xl bg-[#11161D] hover:bg-[#19B000]/15 border border-[#1B222D] hover:border-[#19B000]/50 text-center transition group active:scale-95"
                   >
                     <span className="text-xl block mb-1">💧</span>
-                    <span className="text-xs font-bold text-white group-hover:text-indigo-300 block">+250 ml</span>
-                    <span className="text-[10px] text-slate-400">1 Glass</span>
+                    <span className="text-xs font-heading font-bold text-white group-hover:text-[#4CAF00] block">+250 ml</span>
+                    <span className="text-[10px] text-[#8B949E]">1 Glass</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => handleLogWater(500)}
-                    className="p-3.5 rounded-xl bg-slate-800 hover:bg-indigo-600/20 border border-slate-700 hover:border-indigo-500/50 text-center transition group active:scale-95"
+                    className="p-3.5 rounded-xl bg-[#11161D] hover:bg-[#19B000]/15 border border-[#1B222D] hover:border-[#19B000]/50 text-center transition group active:scale-95"
                   >
                     <span className="text-xl block mb-1">🍶</span>
-                    <span className="text-xs font-bold text-white group-hover:text-indigo-300 block">+500 ml</span>
-                    <span className="text-[10px] text-slate-400">1 Bottle</span>
+                    <span className="text-xs font-heading font-bold text-white group-hover:text-[#4CAF00] block">+500 ml</span>
+                    <span className="text-[10px] text-[#8B949E]">1 Bottle</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => handleLogWater(1000)}
-                    className="p-3.5 rounded-xl bg-slate-800 hover:bg-indigo-600/20 border border-slate-700 hover:border-indigo-500/50 text-center transition group active:scale-95"
+                    className="p-3.5 rounded-xl bg-[#11161D] hover:bg-[#19B000]/15 border border-[#1B222D] hover:border-[#19B000]/50 text-center transition group active:scale-95"
                   >
                     <span className="text-xl block mb-1">🚰</span>
-                    <span className="text-xs font-bold text-white group-hover:text-indigo-300 block">+1000 ml</span>
-                    <span className="text-[10px] text-slate-400">Carafe</span>
+                    <span className="text-xs font-heading font-bold text-white group-hover:text-[#4CAF00] block">+1000 ml</span>
+                    <span className="text-[10px] text-[#8B949E]">Carafe</span>
                   </button>
                 </div>
 
@@ -1099,7 +1099,7 @@ export const LifeHubQuickModals: React.FC = () => {
                     placeholder="Custom ml (e.g. 350)"
                     value={customWater}
                     onChange={(e) => setCustomWater(e.target.value)}
-                    className="flex-1 px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs"
+                    className="flex-1 px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs focus:outline-none focus:border-[#19B000]"
                   />
                   <button
                     type="button"
@@ -1107,7 +1107,7 @@ export const LifeHubQuickModals: React.FC = () => {
                       const val = parseInt(customWater, 10);
                       if (val > 0) handleLogWater(val);
                     }}
-                    className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition"
+                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#19B000] to-[#4CAF00] hover:brightness-110 text-black text-xs font-heading font-black transition"
                   >
                     Add Water
                   </button>
@@ -1120,22 +1120,22 @@ export const LifeHubQuickModals: React.FC = () => {
               <form onSubmit={handleLogSleep} className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-400 mb-1">Hours Slept</label>
+                    <label className="block text-xs font-heading font-bold text-[#8B949E] mb-1">Hours Slept</label>
                     <input
                       type="number"
                       step="0.1"
                       required
                       value={sleepHrs}
                       onChange={(e) => setSleepHrs(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm font-bold"
+                      className="w-full px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-sm font-heading font-black focus:outline-none focus:border-[#19B000]"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-400 mb-1">Quality</label>
+                    <label className="block text-xs font-heading font-bold text-[#8B949E] mb-1">Quality</label>
                     <select
                       value={sleepQual}
                       onChange={(e) => setSleepQual(e.target.value as any)}
-                      className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs"
+                      className="w-full px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs focus:outline-none focus:border-[#19B000]"
                     >
                       <option value="optimal">🌟 Optimal</option>
                       <option value="good">✨ Good</option>
@@ -1147,7 +1147,7 @@ export const LifeHubQuickModals: React.FC = () => {
                 <div className="flex justify-end pt-2">
                   <button
                     type="submit"
-                    className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold"
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#19B000] to-[#4CAF00] text-black text-xs font-heading font-black shadow-lg shadow-[#19B000]/20"
                   >
                     Log Sleep
                   </button>
@@ -1160,30 +1160,30 @@ export const LifeHubQuickModals: React.FC = () => {
               <form onSubmit={handleLogWorkout} className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-400 mb-1">Duration (Mins)</label>
+                    <label className="block text-xs font-heading font-bold text-[#8B949E] mb-1">Duration (Mins)</label>
                     <input
                       type="number"
                       required
                       value={workoutMin}
                       onChange={(e) => setWorkoutMin(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm font-bold"
+                      className="w-full px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-sm font-heading font-black focus:outline-none focus:border-[#19B000]"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-400 mb-1">Workout Type</label>
+                    <label className="block text-xs font-heading font-bold text-[#8B949E] mb-1">Workout Type</label>
                     <input
                       type="text"
                       value={workoutType}
                       onChange={(e) => setWorkoutType(e.target.value)}
                       placeholder="e.g. HIIT, Running, Weightlifting"
-                      className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs"
+                      className="w-full px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs focus:outline-none focus:border-[#19B000]"
                     />
                   </div>
                 </div>
                 <div className="flex justify-end pt-2">
                   <button
                     type="submit"
-                    className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold"
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FFC61A] to-[#FFD43B] text-black text-xs font-heading font-black shadow-lg shadow-[#FFC61A]/20"
                   >
                     Record Workout
                   </button>
@@ -1195,7 +1195,7 @@ export const LifeHubQuickModals: React.FC = () => {
             {healthTab === 'weight' && (
               <form onSubmit={handleLogWeight} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1">Body Weight (kg)</label>
+                  <label className="block text-xs font-heading font-bold text-[#8B949E] mb-1">Body Weight (kg)</label>
                   <input
                     type="number"
                     step="0.1"
@@ -1203,14 +1203,14 @@ export const LifeHubQuickModals: React.FC = () => {
                     placeholder="e.g. 72.5"
                     value={weightValue}
                     onChange={(e) => setWeightValue(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm font-bold"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-sm font-heading font-black focus:outline-none focus:border-[#19B000]"
                     autoFocus
                   />
                 </div>
                 <div className="flex justify-end pt-2">
                   <button
                     type="submit"
-                    className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold"
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#19B000] to-[#4CAF00] text-black text-xs font-heading font-black shadow-lg shadow-[#19B000]/20"
                   >
                     Save Vitals
                   </button>
@@ -1225,19 +1225,19 @@ export const LifeHubQuickModals: React.FC = () => {
         {/* ==================================================================== */}
         {quickModalType === 'journal' && (
           <div className="p-5 sm:p-6 space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1B222D]">
               <div className="flex items-center space-x-3">
-                <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                <div className="p-2 rounded-xl bg-[#FFC61A]/15 text-[#FFC61A] border border-[#FFC61A]/30">
                   <BookOpen className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">Daily Journal</h3>
-                  <p className="text-xs text-slate-400">Reflect on wins, clarity, and daily mindfulness</p>
+                  <h3 className="text-base sm:text-lg font-heading font-black text-white">Daily Journal</h3>
+                  <p className="text-xs text-[#8B949E]">Reflect on wins, clarity, and daily mindfulness</p>
                 </div>
               </div>
               <button 
                 onClick={closeQuickModal}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                className="p-1.5 rounded-lg text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1246,7 +1246,7 @@ export const LifeHubQuickModals: React.FC = () => {
             <form onSubmit={handleSaveJournal} className="space-y-4">
               {/* Mood selector */}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                   How are you feeling today?
                 </label>
                 <div className="flex flex-wrap gap-1.5">
@@ -1255,10 +1255,10 @@ export const LifeHubQuickModals: React.FC = () => {
                       key={m.id}
                       type="button"
                       onClick={() => setJournalMood(m.id)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 border ${
+                      className={`px-3 py-1.5 rounded-xl text-xs font-heading font-bold transition flex items-center space-x-1.5 border ${
                         journalMood === m.id
-                          ? 'bg-indigo-600 border-indigo-400 text-white shadow-md'
-                          : 'bg-slate-800/60 border-slate-700/60 text-slate-300 hover:border-slate-600'
+                          ? 'bg-[#FFC61A] border-[#FFD43B] text-black shadow-md'
+                          : 'bg-[#11161D] border-[#1B222D] text-[#8B949E] hover:border-[#FFC61A]/40'
                       }`}
                     >
                       <span>{m.emoji}</span>
@@ -1269,7 +1269,7 @@ export const LifeHubQuickModals: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                   Title (Optional)
                 </label>
                 <input
@@ -1277,12 +1277,12 @@ export const LifeHubQuickModals: React.FC = () => {
                   placeholder="e.g. Breakthrough session, Calm evening thoughts"
                   value={journalTitle}
                   onChange={(e) => setJournalTitle(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3.5 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white placeholder-[#8B949E] text-xs focus:outline-none focus:border-[#FFC61A]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                   Reflection *
                 </label>
                 <textarea
@@ -1291,13 +1291,13 @@ export const LifeHubQuickModals: React.FC = () => {
                   placeholder="What was your main insight today? What went right? What did you learn?"
                   value={journalContent}
                   onChange={(e) => setJournalContent(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3.5 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white placeholder-[#8B949E] text-xs focus:outline-none focus:border-[#FFC61A]"
                   autoFocus
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                   Gratitude Prompt
                 </label>
                 <input
@@ -1305,7 +1305,7 @@ export const LifeHubQuickModals: React.FC = () => {
                   placeholder="Today I am genuinely grateful for..."
                   value={journalGratitude}
                   onChange={(e) => setJournalGratitude(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3.5 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white placeholder-[#8B949E] text-xs focus:outline-none focus:border-[#FFC61A]"
                 />
               </div>
 
@@ -1313,13 +1313,13 @@ export const LifeHubQuickModals: React.FC = () => {
                 <button
                   type="button"
                   onClick={closeQuickModal}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-600/30 transition flex items-center space-x-1.5"
+                  className="px-5 py-2.5 rounded-xl text-xs font-heading font-black text-black bg-gradient-to-r from-[#FFC61A] to-[#FFD43B] hover:brightness-110 shadow-lg shadow-[#FFC61A]/20 transition flex items-center space-x-1.5"
                 >
                   <BookOpen className="w-4 h-4" />
                   <span>Save Journal</span>
@@ -1334,19 +1334,19 @@ export const LifeHubQuickModals: React.FC = () => {
         {/* ==================================================================== */}
         {quickModalType === 'mind' && (
           <div className="p-5 sm:p-6 space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1B222D]">
               <div className="flex items-center space-x-3">
-                <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                <div className="p-2 rounded-xl bg-[#4CAF00]/15 text-[#4CAF00] border border-[#4CAF00]/30">
                   <Lightbulb className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">Capture Idea or Note</h3>
-                  <p className="text-xs text-slate-400">Save a concept, SaaS architecture, or creative insight</p>
+                  <h3 className="text-base sm:text-lg font-heading font-black text-white">Capture Idea or Note</h3>
+                  <p className="text-xs text-[#8B949E]">Save a concept, SaaS architecture, or creative insight</p>
                 </div>
               </div>
               <button 
                 onClick={closeQuickModal}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                className="p-1.5 rounded-lg text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1354,7 +1354,7 @@ export const LifeHubQuickModals: React.FC = () => {
 
             <form onSubmit={handleSaveMindNote} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                   Idea Title
                 </label>
                 <input
@@ -1362,20 +1362,20 @@ export const LifeHubQuickModals: React.FC = () => {
                   placeholder="e.g. AI-driven financial copilot, Viral loop mechanism"
                   value={mindTitle}
                   onChange={(e) => setMindTitle(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#11161D] border border-[#1B222D] text-white placeholder-[#8B949E] text-sm focus:outline-none focus:border-[#4CAF00] focus:ring-1 focus:ring-[#4CAF00]"
                   autoFocus
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                     Category
                   </label>
                   <select
                     value={mindCategory}
                     onChange={(e) => setMindCategory(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-500"
+                    className="w-full px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs focus:outline-none focus:border-[#4CAF00]"
                   >
                     {mindCategories.map(cat => (
                       <option key={cat} value={cat}>{cat}</option>
@@ -1384,7 +1384,7 @@ export const LifeHubQuickModals: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                     Tags (comma separated)
                   </label>
                   <input
@@ -1392,13 +1392,13 @@ export const LifeHubQuickModals: React.FC = () => {
                     value={mindTags}
                     onChange={(e) => setMindTags(e.target.value)}
                     placeholder="ai, startup, growth"
-                    className="w-full px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-500"
+                    className="w-full px-3 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs focus:outline-none focus:border-[#4CAF00]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label className="block text-xs font-heading font-bold uppercase tracking-wider text-[#8B949E] mb-1.5">
                   Idea Details / Description *
                 </label>
                 <textarea
@@ -1407,7 +1407,7 @@ export const LifeHubQuickModals: React.FC = () => {
                   placeholder="Expand on the value proposition, implementation notes, or immediate next steps..."
                   value={mindContent}
                   onChange={(e) => setMindContent(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3.5 py-2 rounded-xl bg-[#11161D] border border-[#1B222D] text-white placeholder-[#8B949E] text-xs focus:outline-none focus:border-[#4CAF00]"
                 />
               </div>
 
@@ -1415,13 +1415,13 @@ export const LifeHubQuickModals: React.FC = () => {
                 <button
                   type="button"
                   onClick={closeQuickModal}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 shadow-lg shadow-cyan-600/30 transition flex items-center space-x-1.5"
+                  className="px-5 py-2.5 rounded-xl text-xs font-heading font-black text-black bg-gradient-to-r from-[#19B000] to-[#4CAF00] hover:brightness-110 shadow-lg shadow-[#19B000]/20 transition flex items-center space-x-1.5"
                 >
                   <Lightbulb className="w-4 h-4" />
                   <span>Capture Note</span>
@@ -1436,19 +1436,19 @@ export const LifeHubQuickModals: React.FC = () => {
         {/* ==================================================================== */}
         {quickModalType === 'focus' && (
           <div className="p-5 sm:p-6 space-y-6 text-center">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1B222D]">
               <div className="flex items-center space-x-3 text-left">
-                <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                <div className="p-2 rounded-xl bg-[#19B000]/15 text-[#4CAF00] border border-[#19B000]/30">
                   <Brain className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">Focus Session</h3>
-                  <p className="text-xs text-slate-400">Eliminate distractions and enter flow state</p>
+                  <h3 className="text-base sm:text-lg font-heading font-black text-white">Focus Session</h3>
+                  <p className="text-xs text-[#8B949E]">Eliminate distractions and enter flow state</p>
                 </div>
               </div>
               <button 
                 onClick={closeQuickModal}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                className="p-1.5 rounded-lg text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1461,10 +1461,10 @@ export const LifeHubQuickModals: React.FC = () => {
                   key={m}
                   type="button"
                   onClick={() => selectFocusDuration(m)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition border ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold transition border ${
                     focusTotalMinutes === m
-                      ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/30'
-                      : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-slate-600'
+                      ? 'bg-[#19B000] border-[#19B000] text-black shadow-lg shadow-[#19B000]/20'
+                      : 'bg-[#11161D] border-[#1B222D] text-[#8B949E] hover:border-[#19B000]/40'
                   }`}
                 >
                   {m} Min {m === 25 ? 'Pomodoro' : m === 50 ? 'Deep Sprint' : 'Quick'}
@@ -1474,14 +1474,14 @@ export const LifeHubQuickModals: React.FC = () => {
 
             {/* Circular Timer Display */}
             <div className="relative py-4 flex items-center justify-center">
-              <div className="w-44 h-44 rounded-full border-4 border-slate-800 flex flex-col items-center justify-center relative shadow-inner">
+              <div className="w-44 h-44 rounded-full border-4 border-[#1B222D] flex flex-col items-center justify-center relative shadow-inner">
                 {isFocusActive && (
-                  <div className="absolute inset-0 rounded-full border-2 border-indigo-500 animate-ping opacity-25 pointer-events-none" />
+                  <div className="absolute inset-0 rounded-full border-2 border-[#19B000] animate-ping opacity-25 pointer-events-none" />
                 )}
-                <span className="text-4xl sm:text-5xl font-black tracking-tight text-white font-mono">
+                <span className="text-4xl sm:text-5xl font-heading font-black tracking-tight text-white font-mono">
                   {formatTimerDisplay(focusSecondsRemaining)}
                 </span>
-                <span className="text-[11px] font-semibold text-indigo-400 mt-1 uppercase tracking-wider">
+                <span className="text-[11px] font-heading font-bold text-[#4CAF00] mt-1 uppercase tracking-wider">
                   {isFocusActive ? 'In Flow State' : 'Ready To Focus'}
                 </span>
               </div>
@@ -1494,7 +1494,7 @@ export const LifeHubQuickModals: React.FC = () => {
                 value={focusTaskTitle}
                 onChange={(e) => setFocusTaskTitle(e.target.value)}
                 placeholder="What are you focusing on?"
-                className="w-full text-center px-3 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500"
+                className="w-full text-center px-3 py-1.5 rounded-xl bg-[#11161D] border border-[#1B222D] text-white text-xs focus:outline-none focus:border-[#19B000]"
               />
             </div>
 
@@ -1506,7 +1506,7 @@ export const LifeHubQuickModals: React.FC = () => {
                   setIsFocusActive(false);
                   setFocusSecondsRemaining(focusTotalMinutes * 60);
                 }}
-                className="p-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition"
+                className="p-3 rounded-2xl bg-[#11161D] hover:bg-[#1B222D] text-[#8B949E] border border-[#1B222D] transition"
                 title="Reset Timer"
               >
                 <RotateCcw className="w-5 h-5" />
@@ -1515,20 +1515,20 @@ export const LifeHubQuickModals: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsFocusActive(!isFocusActive)}
-                className={`px-8 py-3 rounded-2xl text-sm font-bold text-white shadow-xl transition flex items-center space-x-2 ${
+                className={`px-8 py-3 rounded-2xl text-sm font-heading font-black text-black shadow-xl transition flex items-center space-x-2 ${
                   isFocusActive 
-                    ? 'bg-amber-600 hover:bg-amber-500 shadow-amber-600/30' 
-                    : 'bg-indigo-600 hover:bg-indigo-500 shadow-indigo-600/40'
+                    ? 'bg-[#FFC61A] hover:bg-[#FFD43B] shadow-[#FFC61A]/20' 
+                    : 'bg-gradient-to-r from-[#19B000] to-[#4CAF00] hover:brightness-110 shadow-[#19B000]/30'
                 }`}
               >
                 {isFocusActive ? (
                   <>
-                    <Pause className="w-5 h-5" />
+                    <Pause className="w-5 h-5 fill-black" />
                     <span>Pause Session</span>
                   </>
                 ) : (
                   <>
-                    <Play className="w-5 h-5 fill-white" />
+                    <Play className="w-5 h-5 fill-black" />
                     <span>Start Session</span>
                   </>
                 )}
@@ -1542,19 +1542,19 @@ export const LifeHubQuickModals: React.FC = () => {
         {/* ==================================================================== */}
         {quickModalType === 'voice' && (
           <div className="p-5 sm:p-6 space-y-6 text-center">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1B222D]">
               <div className="flex items-center space-x-3 text-left">
-                <div className="p-2 rounded-xl bg-gradient-to-tr from-indigo-500/20 to-purple-500/20 text-indigo-400 border border-indigo-500/30">
+                <div className="p-2 rounded-xl bg-[#19B000]/15 text-[#4CAF00] border border-[#19B000]/30">
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">LOTAI Voice Capture</h3>
-                  <p className="text-xs text-slate-400">Speak naturally — Gemini processes intent into your OS</p>
+                  <h3 className="text-base sm:text-lg font-heading font-black text-white">LOTAI Voice Capture</h3>
+                  <p className="text-xs text-[#8B949E]">Speak naturally — Gemini processes intent into your OS</p>
                 </div>
               </div>
               <button 
                 onClick={closeQuickModal}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                className="p-1.5 rounded-lg text-[#8B949E] hover:text-white hover:bg-[#11161D] transition"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1567,28 +1567,28 @@ export const LifeHubQuickModals: React.FC = () => {
                 onClick={isVoiceListening ? stopVoiceRecording : startVoiceRecording}
                 className={`relative w-24 h-24 rounded-full flex items-center justify-center text-white transition-all duration-300 shadow-2xl ${
                   isVoiceListening 
-                    ? 'bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 shadow-purple-500/50 ring-4 ring-purple-500/30 animate-pulse'
-                    : 'bg-slate-800 border border-slate-700 hover:border-indigo-500 text-slate-300'
+                    ? 'bg-gradient-to-tr from-[#19B000] via-[#4CAF00] to-[#FFC61A] shadow-[#19B000]/50 ring-4 ring-[#19B000]/30 animate-pulse text-black'
+                    : 'bg-[#11161D] border border-[#1B222D] hover:border-[#19B000] text-[#8B949E]'
                 }`}
               >
                 {isVoiceListening ? (
-                  <Mic className="w-10 h-10 text-white animate-bounce" />
+                  <Mic className="w-10 h-10 text-black animate-bounce" />
                 ) : (
-                  <MicOff className="w-10 h-10 text-slate-400" />
+                  <MicOff className="w-10 h-10 text-[#8B949E]" />
                 )}
               </button>
 
-              <p className="text-xs font-semibold text-slate-300 mt-3">
+              <p className="text-xs font-heading font-bold text-white mt-3">
                 {isVoiceListening ? 'Listening... Speak your command' : 'Tap microphone to speak'}
               </p>
-              <p className="text-[10px] text-slate-500">
+              <p className="text-[10px] text-[#8B949E]">
                 e.g. "Spent ₹450 on lunch", "Add task call accountant tomorrow", "Drank 500ml water"
               </p>
             </div>
 
             {/* Live Transcript Box */}
             <div className="text-left space-y-1.5">
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              <label className="block text-xs font-heading font-bold text-[#8B949E] uppercase tracking-wider">
                 Transcript & Intent
               </label>
               <textarea
@@ -1596,10 +1596,10 @@ export const LifeHubQuickModals: React.FC = () => {
                 value={voiceTranscript}
                 onChange={(e) => setVoiceTranscript(e.target.value)}
                 placeholder="Voice transcription appears here in real-time..."
-                className="w-full p-3 rounded-2xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+                className="w-full p-3 rounded-2xl bg-[#11161D] border border-[#1B222D] text-white placeholder-[#8B949E] text-xs focus:outline-none focus:border-[#19B000]"
               />
               {voiceError && (
-                <p className="text-xs text-rose-400 font-medium">{voiceError}</p>
+                <p className="text-xs text-[#FFC61A] font-medium">{voiceError}</p>
               )}
             </div>
 
@@ -1608,7 +1608,7 @@ export const LifeHubQuickModals: React.FC = () => {
               <button
                 type="button"
                 onClick={closeQuickModal}
-                className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-[#8B949E] hover:text-white"
               >
                 Cancel
               </button>
@@ -1616,7 +1616,7 @@ export const LifeHubQuickModals: React.FC = () => {
                 type="button"
                 disabled={voiceStatus === 'analyzing' || !voiceTranscript.trim()}
                 onClick={handleProcessVoice}
-                className="px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-purple-500 shadow-lg shadow-indigo-600/30 transition flex items-center space-x-2 disabled:opacity-50"
+                className="px-6 py-2.5 rounded-xl text-xs font-heading font-black text-black bg-gradient-to-r from-[#19B000] via-[#4CAF00] to-[#FFC61A] hover:brightness-110 shadow-lg shadow-[#19B000]/30 transition flex items-center space-x-2 disabled:opacity-50"
               >
                 <Sparkles className="w-4 h-4" />
                 <span>{voiceStatus === 'analyzing' ? 'Processing with Gemini...' : 'Execute Action'}</span>

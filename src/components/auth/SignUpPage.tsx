@@ -63,7 +63,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onSwitchView }) => {
         subtitle="We sent an email verification link to complete your signup"
       >
         <div className="text-center space-y-4 py-2">
-          <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center border border-emerald-500/30">
+          <div className="w-12 h-12 rounded-full bg-[#19B000]/20 text-[#19B000] mx-auto flex items-center justify-center border border-[#19B000]/30">
             <CheckCircle2 className="w-6 h-6" />
           </div>
           <p className="text-sm text-slate-300">
@@ -72,7 +72,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onSwitchView }) => {
           </p>
           <button
             onClick={() => onSwitchView('login')}
-            className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition"
+            className="w-full py-2.5 rounded-xl bg-[#11161D] hover:bg-[#1B222D] text-slate-200 text-xs font-heading font-bold border border-[#1B222D] transition"
           >
             Back to Sign In
           </button>
@@ -88,7 +88,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onSwitchView }) => {
     >
       <div className="space-y-4">
         {errorMsg && (
-          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center space-x-2">
+          <div className="p-3 rounded-xl bg-[#FFC61A]/10 border border-[#FFC61A]/30 text-[#FFD43B] text-xs flex items-center space-x-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{errorMsg}</span>
           </div>
@@ -99,7 +99,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onSwitchView }) => {
           type="button"
           onClick={handleGoogleSignUp}
           disabled={isLoading || !isConfigured}
-          className="w-full flex items-center justify-center space-x-3 py-3 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs sm:text-sm shadow-md transition disabled:opacity-40"
+          className="w-full flex items-center justify-center space-x-3 py-3 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-heading font-bold text-xs sm:text-sm shadow-md transition disabled:opacity-40"
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24">
             <path
@@ -123,9 +123,9 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onSwitchView }) => {
         </button>
 
         <div className="relative flex py-2 items-center">
-          <div className="flex-grow border-t border-slate-800"></div>
+          <div className="flex-grow border-t border-[#1B222D]"></div>
           <span className="flex-shrink mx-4 text-slate-500 text-xs uppercase tracking-wider font-semibold">Or with email</span>
-          <div className="flex-grow border-t border-slate-800"></div>
+          <div className="flex-grow border-t border-[#1B222D]"></div>
         </div>
 
         {/* Email & Password Signup Form */}
@@ -139,7 +139,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onSwitchView }) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Alex Mercer"
-                className="w-full bg-slate-950 border border-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none transition"
+                className="w-full bg-[#11161D] border border-[#1B222D] focus:border-[#19B000] focus:ring-2 focus:ring-[#19B000]/20 rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#F0F6FC] placeholder-slate-500 focus:outline-none transition"
               />
               <User className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
             </div>
@@ -154,7 +154,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onSwitchView }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full bg-slate-950 border border-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none transition"
+                className="w-full bg-[#11161D] border border-[#1B222D] focus:border-[#19B000] focus:ring-2 focus:ring-[#19B000]/20 rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#F0F6FC] placeholder-slate-500 focus:outline-none transition"
               />
               <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
             </div>
@@ -170,7 +170,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onSwitchView }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none transition"
+                  className="w-full bg-[#11161D] border border-[#1B222D] focus:border-[#19B000] focus:ring-2 focus:ring-[#19B000]/20 rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#F0F6FC] placeholder-slate-500 focus:outline-none transition"
                 />
                 <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
               </div>
@@ -185,7 +185,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onSwitchView }) => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none transition"
+                  className="w-full bg-[#11161D] border border-[#1B222D] focus:border-[#19B000] focus:ring-2 focus:ring-[#19B000]/20 rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#F0F6FC] placeholder-slate-500 focus:outline-none transition"
                 />
                 <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
               </div>
@@ -195,9 +195,9 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onSwitchView }) => {
           <button
             type="submit"
             disabled={isLoading || !isConfigured}
-            className="w-full mt-2 py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition disabled:opacity-40 flex items-center justify-center space-x-2 active:scale-95"
+            className="w-full mt-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#19B000] to-[#4CAF00] text-black font-heading font-black text-sm shadow-lg shadow-[#19B000]/25 transition hover:brightness-110 disabled:opacity-40 flex items-center justify-center space-x-2 active:scale-95"
           >
-            <span>{isLoading ? 'Creating Account...' : 'Create Account'}</span>
+            <span>{isLoading ? 'Creating Account...' : 'Start Your Journey'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
@@ -209,7 +209,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onSwitchView }) => {
             <button
               type="button"
               onClick={() => onSwitchView('login')}
-              className="font-bold text-indigo-400 hover:text-indigo-300 transition"
+              className="font-heading font-bold text-[#19B000] hover:text-[#4CAF00] transition"
             >
               Sign in
             </button>
@@ -220,7 +220,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onSwitchView }) => {
               onClick={() => (onSwitchView as any)('landing')}
               className="text-slate-500 hover:text-slate-300 transition text-[11px]"
             >
-              ← Back to Product Tour & Overview
+              ← Back to Overview
             </button>
           </div>
         </div>

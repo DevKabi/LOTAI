@@ -4,57 +4,68 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 overflow-x-hidden;
+    @apply bg-[#050505] text-[#F0F6FC] overflow-x-hidden font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-black tracking-tight;
   }
 }
 
-/* Custom modern scrollbar */
+/* Custom brand scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: #050505;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.4);
+  background: rgba(25, 176, 0, 0.4);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.8);
+  background: rgba(25, 176, 0, 0.8);
 }
 
-/* Glassmorphism accents */
+/* Glassmorphism surfaces on Deep Dark #0D1117 & #11161D */
 .glass-panel {
-  background: rgba(17, 24, 39, 0.7);
+  background: rgba(13, 17, 23, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(27, 34, 45, 0.9);
 }
 
 .glass-card {
-  background: rgba(30, 41, 59, 0.45);
+  background: rgba(17, 22, 29, 0.85);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(27, 34, 45, 0.8);
 }
 
-.glow-indigo {
-  box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.35);
+/* Brand Glow Effects: Green & Golden Yellow only */
+.glow-green {
+  box-shadow: 0 0 25px -5px rgba(25, 176, 0, 0.4);
 }
 
-.glow-emerald {
-  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.35);
+.glow-gold {
+  box-shadow: 0 0 25px -5px rgba(255, 198, 26, 0.4);
+}
+
+.glow-lime {
+  box-shadow: 0 0 25px -5px rgba(154, 205, 0, 0.4);
+}
+
+/* Legacy aliases mapped to Brand Green & Gold */
+.glow-indigo, .glow-purple, .glow-emerald {
+  box-shadow: 0 0 25px -5px rgba(25, 176, 0, 0.4);
 }
 
 .glow-amber {
-  box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.35);
-}
-
-.glow-purple {
-  box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.35);
+  box-shadow: 0 0 25px -5px rgba(255, 198, 26, 0.4);
 }
 
 @keyframes slideInRight {

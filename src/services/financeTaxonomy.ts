@@ -12,88 +12,88 @@ export const EXPENSE_TAXONOMY: Record<ExpenseCategory, CategoryDefinition> = {
     category: 'Food & Dining',
     subcategories: ['Restaurant', 'Cafe', 'Groceries', 'Snacks', 'Food Delivery'],
     iconName: 'UtensilsCrossed',
-    color: '#10B981'
+    color: '#19B000'
   },
   'Transportation': {
     category: 'Transportation',
     subcategories: ['Fuel', 'Cab', 'Auto Rickshaw', 'Bus', 'Train', 'Flight', 'Parking'],
     iconName: 'Car',
-    color: '#06B6D4'
+    color: '#4CAF00'
   },
   'Health & Medical': {
     category: 'Health & Medical',
     subcategories: ['Doctor', 'Hospital', 'Medicine', 'Lab Tests', 'Health Insurance', 'Supplements'],
     iconName: 'HeartPulse',
-    color: '#F43F5E'
+    color: '#FFC61A'
   },
   'Housing & Utilities': {
     category: 'Housing & Utilities',
     subcategories: ['Rent', 'Electricity', 'Water', 'Internet', 'Mobile Recharge', 'Maintenance'],
     iconName: 'Home',
-    color: '#6366F1'
+    color: '#9ACD00'
   },
   'Shopping': {
     category: 'Shopping',
     subcategories: ['Clothing', 'Electronics', 'Home Items', 'Personal Care'],
     iconName: 'ShoppingBag',
-    color: '#EC4899'
+    color: '#FFD43B'
   },
   'Education & Learning': {
     category: 'Education & Learning',
     subcategories: ['Books', 'Courses', 'Coaching', 'Certifications'],
     iconName: 'GraduationCap',
-    color: '#8B5CF6'
+    color: '#19B000'
   },
   'Business Expenses': {
     category: 'Business Expenses',
     subcategories: ['Software', 'Advertising', 'Marketing', 'Team Salary', 'Freelancers', 'Office Expenses', 'Domain & Hosting'],
     iconName: 'Briefcase',
-    color: '#3B82F6'
+    color: '#FFE066'
   },
   'Financial Obligations': {
     category: 'Financial Obligations',
     subcategories: ['EMI', 'Loan Payment', 'Credit Card Payment', 'Insurance Premium'],
     iconName: 'CreditCard',
-    color: '#F59E0B'
+    color: '#FFC61A'
   },
   'Investments & Savings': {
     category: 'Investments & Savings',
     subcategories: ['Mutual Funds', 'Stocks', 'Gold', 'Crypto', 'Fixed Deposit', 'Savings Transfer'],
     iconName: 'PiggyBank',
-    color: '#14B8A6'
+    color: '#4CAF00'
   },
   'Entertainment': {
     category: 'Entertainment',
     subcategories: ['Movies', 'OTT', 'Events', 'Gaming'],
     iconName: 'Film',
-    color: '#A855F7'
+    color: '#9ACD00'
   },
   'Travel': {
     category: 'Travel',
     subcategories: ['Hotels', 'Vacation', 'Tourism'],
     iconName: 'Plane',
-    color: '#0EA5E9'
+    color: '#FFD43B'
   },
   'Miscellaneous': {
     category: 'Miscellaneous',
     subcategories: ['Donations', 'Gifts', 'Other'],
     iconName: 'MoreHorizontal',
-    color: '#94A3B8'
+    color: '#8B949E'
   }
 };
 
 export const INCOME_TAXONOMY: { category: IncomeCategory; iconName: string; color: string }[] = [
-  { category: 'Salary', iconName: 'Wallet', color: '#10B981' },
-  { category: 'Business Revenue', iconName: 'TrendingUp', color: '#3B82F6' },
-  { category: 'Freelancing', iconName: 'Laptop', color: '#8B5CF6' },
-  { category: 'Consulting', iconName: 'Users', color: '#6366F1' },
-  { category: 'Commission', iconName: 'Coins', color: '#F59E0B' },
-  { category: 'Affiliate Income', iconName: 'Link2', color: '#EC4899' },
-  { category: 'Investment Income', iconName: 'PiggyBank', color: '#14B8A6' },
-  { category: 'Rental Income', iconName: 'Home', color: '#06B6D4' },
-  { category: 'Interest Income', iconName: 'Percent', color: '#10B981' },
-  { category: 'Refunds', iconName: 'RotateCcw', color: '#0EA5E9' },
-  { category: 'Other Income', iconName: 'PlusCircle', color: '#94A3B8' }
+  { category: 'Salary', iconName: 'Wallet', color: '#19B000' },
+  { category: 'Business Revenue', iconName: 'TrendingUp', color: '#4CAF00' },
+  { category: 'Freelancing', iconName: 'Laptop', color: '#FFC61A' },
+  { category: 'Consulting', iconName: 'Users', color: '#9ACD00' },
+  { category: 'Commission', iconName: 'Coins', color: '#FFD43B' },
+  { category: 'Affiliate Income', iconName: 'Link2', color: '#19B000' },
+  { category: 'Investment Income', iconName: 'PiggyBank', color: '#4CAF00' },
+  { category: 'Rental Income', iconName: 'Home', color: '#FFE066' },
+  { category: 'Interest Income', iconName: 'Percent', color: '#9ACD00' },
+  { category: 'Refunds', iconName: 'RotateCcw', color: '#FFC61A' },
+  { category: 'Other Income', iconName: 'PlusCircle', color: '#8B949E' }
 ];
 
 export interface CategorizationResult {

@@ -154,7 +154,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         particleCount: 75,
         spread: 70,
         origin: { y: 0.7 },
-        colors: ['#6366f1', '#10b981', '#f59e0b', '#ec4899']
+        colors: ['#19B000', '#4CAF00', '#FFC61A', '#FFD43B']
       });
     } catch {
       // ignore
@@ -900,7 +900,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
             frequency: 'daily',
             timeOfDay: 'morning',
             targetCount: 1,
-            color: '#6366f1'
+            color: '#19B000'
           });
           return `Created habit "${fields.habitName}" and saved to Cloud.`;
         } else if (matched) {

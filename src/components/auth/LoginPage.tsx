@@ -48,27 +48,27 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchView }) => {
       <div className="space-y-4">
         {/* Cloud Notice if not configured */}
         {!isConfigured && (
-          <div className="p-3.5 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 text-xs text-indigo-300 space-y-2">
-            <div className="flex items-center space-x-1.5 font-bold">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+          <div className="p-3.5 rounded-2xl bg-[#11161D] border border-[#1B222D] text-xs text-slate-300 space-y-2">
+            <div className="flex items-center space-x-1.5 font-heading font-bold text-[#FFC61A]">
+              <Sparkles className="w-3.5 h-3.5 text-[#FFC61A]" />
               <span>LOTAI Cloud Ready</span>
             </div>
-            <p className="text-slate-300 leading-relaxed text-[11px]">
+            <p className="text-slate-400 leading-relaxed text-[11px] font-sans">
               LOTAI Cloud is integrated with instant local caching. You can explore immediately with Instant Preview below:
             </p>
             <button
               type="button"
               onClick={signInAsDemoUser}
-              className="w-full py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md shadow-indigo-600/30 transition active:scale-95 flex items-center justify-center space-x-1.5"
+              className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-[#19B000] to-[#4CAF00] text-black font-heading font-black text-xs shadow-md shadow-[#19B000]/25 transition hover:brightness-110 active:scale-95 flex items-center justify-center space-x-1.5"
             >
-              <span>Instant Preview (Demo User)</span>
+              <span>Instant Preview</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
         )}
 
         {errorMsg && (
-          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center space-x-2">
+          <div className="p-3 rounded-xl bg-[#FFC61A]/10 border border-[#FFC61A]/30 text-[#FFD43B] text-xs flex items-center space-x-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{errorMsg}</span>
           </div>
@@ -79,7 +79,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchView }) => {
           type="button"
           onClick={handleGoogleLogin}
           disabled={isLoading || !isConfigured}
-          className="w-full flex items-center justify-center space-x-3 py-3 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs sm:text-sm shadow-md transition disabled:opacity-40"
+          className="w-full flex items-center justify-center space-x-3 py-3 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-heading font-bold text-xs sm:text-sm shadow-md transition disabled:opacity-40"
         >
           {/* Google SVG Icon */}
           <svg className="w-4 h-4" viewBox="0 0 24 24">
@@ -104,9 +104,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchView }) => {
         </button>
 
         <div className="relative flex py-2 items-center">
-          <div className="flex-grow border-t border-slate-800"></div>
+          <div className="flex-grow border-t border-[#1B222D]"></div>
           <span className="flex-shrink mx-4 text-slate-500 text-xs uppercase tracking-wider font-semibold">Or with email</span>
-          <div className="flex-grow border-t border-slate-800"></div>
+          <div className="flex-grow border-t border-[#1B222D]"></div>
         </div>
 
         {/* Email Form */}
@@ -120,7 +120,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchView }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full bg-slate-950 border border-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none transition"
+                className="w-full bg-[#11161D] border border-[#1B222D] focus:border-[#19B000] focus:ring-2 focus:ring-[#19B000]/20 rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#F0F6FC] placeholder-slate-500 focus:outline-none transition"
               />
               <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
             </div>
@@ -132,7 +132,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchView }) => {
               <button
                 type="button"
                 onClick={() => onSwitchView('forgot_password')}
-                className="text-xs text-indigo-400 hover:text-indigo-300 transition"
+                className="text-xs text-[#FFC61A] hover:text-[#FFD43B] transition"
               >
                 Forgot password?
               </button>
@@ -144,7 +144,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchView }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-slate-950 border border-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none transition"
+                className="w-full bg-[#11161D] border border-[#1B222D] focus:border-[#19B000] focus:ring-2 focus:ring-[#19B000]/20 rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#F0F6FC] placeholder-slate-500 focus:outline-none transition"
               />
               <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
             </div>
@@ -153,7 +153,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchView }) => {
           <button
             type="submit"
             disabled={isLoading || !isConfigured}
-            className="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition disabled:opacity-40 flex items-center justify-center space-x-2 active:scale-95"
+            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#19B000] to-[#4CAF00] text-black font-heading font-black text-sm shadow-lg shadow-[#19B000]/25 transition hover:brightness-110 disabled:opacity-40 flex items-center justify-center space-x-2 active:scale-95"
           >
             <span>{isLoading ? 'Signing In...' : 'Sign In'}</span>
             <ArrowRight className="w-4 h-4" />
@@ -167,9 +167,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchView }) => {
             <button
               type="button"
               onClick={() => onSwitchView('signup')}
-              className="font-bold text-indigo-400 hover:text-indigo-300 transition"
+              className="font-heading font-bold text-[#19B000] hover:text-[#4CAF00] transition"
             >
-              Sign up for free
+              Start Your Journey
             </button>
           </div>
           <div>
@@ -178,7 +178,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchView }) => {
               onClick={() => (onSwitchView as any)('landing')}
               className="text-slate-500 hover:text-slate-300 transition text-[11px]"
             >
-              ← Back to Product Tour & Overview
+              ← Back to Overview
             </button>
           </div>
         </div>
